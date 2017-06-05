@@ -1,0 +1,6 @@
+[submodule "sudoku"]
+	path = sudoku
+	url = git@github.com:coldfix/sudoku-swi
+[submodule "blog"]
+	path = blog
+	url = git@github.com:coldfix/website
