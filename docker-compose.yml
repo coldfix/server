@@ -6,6 +6,7 @@ services:
     volumes:
       - ./nginx/conf:/etc/nginx/
       - /etc/letsencrypt:/etc/letsencrypt
+      - ./blog/_build:/var/www/blog
     ports:
       - "443:443"
       - "80:80"
@@ -14,8 +15,7 @@ services:
     build: blog
     volumes:
       - ./blog:/blog
-    ports:
-      - "5000:5000"
+    command: run-blogdown build
 
   sudoku:
     build: sudoku

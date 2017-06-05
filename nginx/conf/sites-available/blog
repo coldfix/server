@@ -8,7 +8,5 @@ server {
                 coldfix.eu www.coldfix.eu blog.coldfix.eu
                 37.120.171.171;
     access_log /var/log/nginx/access_blog.log;
-    location / {
-        proxy_pass http://blog:5000;
-    }
+    root /var/www/blog;
 }
