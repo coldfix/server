@@ -24,3 +24,9 @@ services:
     image: gogs/gogs
     volumes:
       - "./gogs/data:/data"
+
+  cryptpad:
+    build: cryptpad
+    volumes:
+      - ./cryptpad/datastore:/cryptpad/datastore
+      - ./cryptpad/customize:/cryptpad/customize
