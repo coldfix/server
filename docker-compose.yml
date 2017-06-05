@@ -1,0 +1,8 @@
+version: "3"
+services:
+
+  sudoku:
+    build: sudoku
+    ports:
+      - "3030:3000"
+
