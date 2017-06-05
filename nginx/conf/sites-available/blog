@@ -1,0 +1,14 @@
+# blog (serve)
+server {
+    listen      80;
+    listen [::]:80;
+    listen      443 ssl;
+    listen [::]:443 ssl;
+    server_name coldfix.de www.coldfix.de blog.coldfix.de
+                coldfix.eu www.coldfix.eu blog.coldfix.eu
+                37.120.171.171;
+    access_log /var/log/nginx/access_blog.log;
+    location / {
+        proxy_pass http://blog:5000;
+    }
+}

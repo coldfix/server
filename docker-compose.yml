@@ -1,15 +1,26 @@
 version: "3"
 services:
 
+  web:
+    build: nginx
+    volumes:
+      - ./nginx/conf:/etc/nginx/
+      - /etc/letsencrypt:/etc/letsencrypt
+    ports:
+      - "443:443"
+      - "80:80"
+
+  blog:
+    build: blog
+    volumes:
+      - ./blog:/blog
+    ports:
+      - "5000:5000"
+
   sudoku:
     build: sudoku
-    ports:
-      - "3030:3000"
 
   gogs:
     image: gogs/gogs
-    ports:
-      - "1022:22"  # TODO: 22
-      - "3000:3000"
     volumes:
       - "./gogs/data:/data"

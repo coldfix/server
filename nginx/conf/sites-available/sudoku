@@ -1,0 +1,13 @@
+# sudoku (->apache)
+server {
+    listen      80;
+    listen [::]:80;
+    listen      443 ssl;
+    listen [::]:443 ssl;
+    server_name sudoku.coldfix.de
+                sudoku.coldfix.eu;
+    location / {
+        proxy_pass http://sudoku:3000;
+    }
+    access_log /var/log/nginx/access_sudoku.log;
+}
