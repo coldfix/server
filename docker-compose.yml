@@ -6,3 +6,10 @@ services:
     ports:
       - "3030:3000"
 
+  gogs:
+    image: gogs/gogs
+    ports:
+      - "1022:22"  # TODO: 22
+      - "3000:3000"
+    volumes:
+      - "./gogs/data:/data"
