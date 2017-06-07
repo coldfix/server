@@ -5,9 +5,11 @@ services:
     build: modules/nginx
     restart: always
     volumes:
-      - ./nginx/conf:/etc/nginx/
+      - ./etc/nginx:/etc/nginx/
       - /etc/letsencrypt:/etc/letsencrypt
-      - ./blog/_build:/var/www/blog
+      - ./var/blog:/var/www/blog
+      - ./var/pypi:/var/www/pypi
+      - ./var/nginx:/var/log/nginx
     ports:
       - "443:443"
       - "80:80"
@@ -16,29 +18,41 @@ services:
     build: modules/blog
     restart: no             # build + exit
     volumes:
-      - ./blog:/blog
+      - ./modules/blog:/blog
+      - ./var/blog:/blog/_build
     command: run-blogdown build
 
   sudoku:
     build: modules/sudoku
     restart: always
+#   ports:
+#     - "3000:3000"
 
   gogs:
     image: gogs/gogs
     restart: always
     volumes:
       - "./gogs/data:/data"
+    ports:
+      - "22:22"
+#     - "3000:3000"
 
   cryptpad:
     build: modules/cryptpad
     restart: always
     volumes:
-      - ./cryptpad/datastore:/cryptpad/datastore
-      - ./cryptpad/customize:/cryptpad/customize
+      - ./etc/cryptpad:/cryptpad/customize
+      - ./var/cryptpad:/cryptpad/datastore
+#   ports:
+#     - "3000:3000"     # TODO: needed for websockets?
 
   pins:
     build: modules/pins
     restart: always
+    volumes:
+      - ./var/pins:/tmp/shields.py
+#   ports:
+#     - "8080:8080"
 
   redis:
     image: redis:alpine

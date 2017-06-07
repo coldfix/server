@@ -1,4 +1,3 @@
-# blog (serve)
 server {
     listen      80;
     listen [::]:80;

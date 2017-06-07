@@ -1,4 +1,3 @@
-# PyPI (serve)
 server {
     listen      80;
     listen [::]:80;
@@ -6,7 +5,7 @@ server {
     listen [::]:443 ssl;
     server_name pypi.coldfix.de
                 pypi.coldfix.eu;
-    root /home/pypi;
+    root /var/pypi;
     autoindex on;
     access_log /var/log/nginx/access_pypi.log;
 }
