@@ -1,0 +1,13 @@
+# pins (->supervisor)
+server {
+    listen      80;
+    listen [::]:80;
+    listen      443 ssl;
+    listen [::]:443 ssl;
+    server_name pins.coldfix.de
+                pins.coldfix.eu;
+    location / {
+        proxy_pass http://pins:8080;
+    }
+    access_log /var/log/nginx/access_pins.log;
+}

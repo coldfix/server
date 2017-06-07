@@ -30,3 +30,9 @@ services:
     volumes:
       - ./cryptpad/datastore:/cryptpad/datastore
       - ./cryptpad/customize:/cryptpad/customize
+
+  pins:
+    build: pins
+
+  redis:
+    image: redis:alpine
