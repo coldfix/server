@@ -2,7 +2,7 @@ version: "3"
 services:
 
   web:
-    build: nginx
+    build: modules/nginx
     volumes:
       - ./nginx/conf:/etc/nginx/
       - /etc/letsencrypt:/etc/letsencrypt
@@ -12,13 +12,13 @@ services:
       - "80:80"
 
   blog:
-    build: blog
+    build: modules/blog
     volumes:
       - ./blog:/blog
     command: run-blogdown build
 
   sudoku:
-    build: sudoku
+    build: modules/sudoku
 
   gogs:
     image: gogs/gogs
@@ -26,13 +26,13 @@ services:
       - "./gogs/data:/data"
 
   cryptpad:
-    build: cryptpad
+    build: modules/cryptpad
     volumes:
       - ./cryptpad/datastore:/cryptpad/datastore
       - ./cryptpad/customize:/cryptpad/customize
 
   pins:
-    build: pins
+    build: modules/pins
 
   redis:
     image: redis:alpine

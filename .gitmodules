@@ -1,9 +1,9 @@
 [submodule "sudoku"]
-	path = sudoku
+	path = modules/sudoku
 	url = git@github.com:coldfix/sudoku-swi
 [submodule "blog"]
-	path = blog
+	path = modules/blog
 	url = git@github.com:coldfix/website
 [submodule "pins"]
-	path = pins
+	path = modules/pins
 	url = git@github.com:coldfix/pypipins
