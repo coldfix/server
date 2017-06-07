@@ -3,6 +3,7 @@ services:
 
   web:
     build: modules/nginx
+    restart: always
     volumes:
       - ./nginx/conf:/etc/nginx/
       - /etc/letsencrypt:/etc/letsencrypt
@@ -13,26 +14,32 @@ services:
 
   blog:
     build: modules/blog
+    restart: no             # build + exit
     volumes:
       - ./blog:/blog
     command: run-blogdown build
 
   sudoku:
     build: modules/sudoku
+    restart: always
 
   gogs:
     image: gogs/gogs
+    restart: always
     volumes:
       - "./gogs/data:/data"
 
   cryptpad:
     build: modules/cryptpad
+    restart: always
     volumes:
       - ./cryptpad/datastore:/cryptpad/datastore
       - ./cryptpad/customize:/cryptpad/customize
 
   pins:
     build: modules/pins
+    restart: always
 
   redis:
     image: redis:alpine
+    restart: always
