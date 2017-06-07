@@ -57,3 +57,15 @@ services:
   redis:
     image: redis:alpine
     restart: always
+
+  murmur:
+    build: modules/murmur
+    restart: always
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - ./etc/murmur:/etc/murmur
+      - ./var/murmur/log:/var/log/murmur
+      - ./var/murmur/lib:/var/lib/murmur
+    ports:
+      - "64738:64738/tcp"
+      - "64738:64738/udp"

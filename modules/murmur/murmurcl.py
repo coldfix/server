@@ -35,7 +35,7 @@ class IcedMurmur(object):
     def __init__(self,
                  slice = "Murmur.ice",
                  proxy = "Meta:tcp -h 127.0.0.1 -p 6502"):
-        Ice.loadSlice(slice)
+        #Ice.loadSlice(slice)
         import Murmur
         ice = Ice.initialize()
         prx = ice.stringToProxy(proxy)
@@ -307,6 +307,19 @@ def cb_listservers(options, args, murmur):
         print "%d\t\t%d\t\t%s" % (s.id(), port, s.isRunning())
     return True
 
+def cb_addchannel(options, args, murmur):
+    """
+    Add a new channel on a server
+    usage: addchannel <server> <name> <parent>
+    """
+    port = int(args[1])
+    print(port)
+    name = args[2]
+    parent = int(args[3])
+    server = murmur.getServer(port)
+    server.addChannel(name, parent)
+
+
 def display_help(args, commands):
     """
     Displays this help
@@ -333,6 +346,7 @@ def dispatch(options, args):
                 'cfgplayer':cb_cfgplayer,
                 'startserver':cb_startserver,
                 'stopserver':cb_stopserver,
+                'addchannel':cb_addchannel,
                 'listplayers':cb_listplayers,
                 'listservers':cb_listservers}
 
