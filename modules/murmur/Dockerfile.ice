@@ -15,4 +15,4 @@ EXPOSE 64738/tcp
 EXPOSE 64738/udp
 
 ENTRYPOINT ["/sbin/tini", "--", "/murmur/init.sh"]
-CMD ["/usr/sbin/murmurd", "-fg", "-v"]
+CMD ["/usr/bin/murmurd", "-fg", "-v"]
