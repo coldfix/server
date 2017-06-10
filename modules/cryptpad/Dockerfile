@@ -1,15 +1,13 @@
 FROM node:6-alpine
 
-COPY . /cryptpad
 WORKDIR /cryptpad
 
 RUN apk add --no-cache git tini \
+   && git clone https://github.com/xwiki-labs/cryptpad /cryptpad \
+   && cd /cryptpad \
    && npm install \
    && npm install -g bower \
-   && bower install --allow-root \
-   && git clone https://github.com/xwiki-labs/cryptpad /cryptpad
-
-WORKDIR /cryptpad
+   && bower install --allow-root
 
 EXPOSE 3000
 
