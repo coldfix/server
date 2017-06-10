@@ -16,7 +16,7 @@ services:
 
   blog:
     build: modules/blog
-    restart: no             # build + exit
+    restart: "no"           # build + exit
     volumes:
       - ./modules/blog:/blog
       - ./var/blog:/blog/_build
