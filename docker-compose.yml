@@ -32,7 +32,7 @@ services:
     image: gogs/gogs
     restart: always
     volumes:
-      - "./gogs/data:/data"
+      - "./var/gogs:/data"
     ports:
       - "22:22"
 #     - "3000:3000"
