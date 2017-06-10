@@ -18,7 +18,7 @@ add_channel() {
     "
 }
 
-/etc/murmur/create_default_db.sqlite
+/etc/murmur/sql_create_default_db.sh
 add_channel 1  0 "Kätzchen"
 add_channel 2 20 "Krümelchen"
 add_channel 3 40 "Flauschetierchen"
