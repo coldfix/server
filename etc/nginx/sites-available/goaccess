@@ -1,0 +1,10 @@
+server {
+    listen      80;
+    listen [::]:80;
+    listen      443 ssl;
+    listen [::]:443 ssl;
+    server_name stats.coldfix.de
+                stats.coldfix.eu;
+    root /var/goaccess/report;
+    autoindex on;
+}
