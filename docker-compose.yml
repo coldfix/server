@@ -47,6 +47,12 @@ services:
       - "22:22"
 #     - "3000:3000"
 
+  kansha:
+    image: netng/kansha
+    restart: always
+#   ports:
+#     - "8080:8080"
+
   cryptpad:
     build: modules/cryptpad
     restart: always
