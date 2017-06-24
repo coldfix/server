@@ -12,7 +12,7 @@
 	url = git@github.com:xwiki-labs/cryptpad.git
 [submodule "goaccess"]
 	path = modules/goaccess
-	url = git@github.com:coldfix/goaccess
+	url = git@github.com:allinurl/goaccess
 [submodule "picbox"]
 	path = modules/picbox
 	url = git@github.com:coldfix/octo-pic-box
