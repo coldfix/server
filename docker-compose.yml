@@ -1,6 +1,11 @@
 version: "3"
 services:
 
+  # TODO: migrate data: pypi / logs / libs / pdfs (blog)
+  # postfix/dovecot:
+  # - https://github.com/tomav/docker-mailserver
+  # - https://github.com/hardware/mailserver
+
   web:
     build: modules/nginx
     restart: always
@@ -37,6 +42,17 @@ services:
     restart: always
 #   ports:
 #     - "3000:3000"
+
+  picbox:
+    build: modules/picbox
+    restart: always
+#   ports:
+#     - "80:80"
+    volumes:
+      - ./modules/picbox:/picbox
+      - ./var/picbox:/picbox/files
+    environment:
+      - HTTP_AUTH=none
 
   gogs:
     image: gogs/gogs

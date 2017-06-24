@@ -13,3 +13,6 @@
 [submodule "goaccess"]
 	path = modules/goaccess
 	url = git@github.com:coldfix/goaccess
+[submodule "picbox"]
+	path = modules/picbox
+	url = git@github.com:coldfix/octo-pic-box
