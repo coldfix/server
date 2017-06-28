@@ -5,6 +5,8 @@ server {
     listen [::]:443 ssl;
     server_name coldfix.de www.coldfix.de blog.coldfix.de
                 coldfix.eu www.coldfix.eu blog.coldfix.eu
+                fireflake.de www.fireflake.de blog.fireflake.de
+                fireflake.eu www.fireflake.eu blog.fireflake.eu
                 37.120.171.171;
     access_log /var/log/nginx/access_blog.log;
     root /var/www/blog;

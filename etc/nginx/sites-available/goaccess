@@ -4,7 +4,9 @@ server {
     listen      443 ssl;
     listen [::]:443 ssl;
     server_name stats.coldfix.de
-                stats.coldfix.eu;
+                stats.coldfix.eu
+                stats.fireflake.de
+                stats.fireflake.eu;
     root /var/goaccess/report;
     autoindex on;
 }

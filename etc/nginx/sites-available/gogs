@@ -2,7 +2,9 @@ server {
     listen      80;
     listen [::]:80;
     server_name gogs.coldfix.de
-                gogs.coldfix.eu;
+                gogs.coldfix.eu
+                gogs.fireflake.de
+                gogs.fireflake.eu;
     return 301 https://$host$request_uri;
 }
 
@@ -10,7 +12,9 @@ server {
     listen      443 ssl;
     listen [::]:443 ssl;
     server_name gogs.coldfix.de
-                gogs.coldfix.eu;
+                gogs.coldfix.eu
+                gogs.fireflake.de
+                gogs.fireflake.eu;
     location / {
         proxy_pass                          http://gogs:3000;
         proxy_set_header X-Real-IP          $remote_addr;
