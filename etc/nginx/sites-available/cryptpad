@@ -1,14 +1,4 @@
 server {
-    listen      80;
-    listen [::]:80;
-    server_name cryptpad.coldfix.de
-                cryptpad.coldfix.eu
-                cryptpad.fireflake.de
-                cryptpad.fireflake.eu;
-    return 301 https://$host$request_uri;
-}
-
-server {
     listen      443 ssl;
     listen [::]:443 ssl;
     server_name cryptpad.coldfix.de
