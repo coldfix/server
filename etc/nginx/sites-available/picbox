@@ -6,6 +6,7 @@ server {
                 pics.fireflake.de pix.fireflake.de picbox.fireflake.de
                 pics.fireflake.eu pix.fireflake.eu picbox.fireflake.eu;
     access_log /var/log/nginx/access_pics.log;
+    client_max_body_size 100m;
     location / {
         proxy_pass                          http://picbox:80;
         proxy_set_header X-Real-IP          $remote_addr;
