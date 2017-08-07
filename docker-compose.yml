@@ -43,16 +43,14 @@ services:
 #   ports:
 #     - "3000:3000"
 
-  picbox:
-    build: modules/picbox
+  pycbox:
+    build: modules/pycbox
     restart: always
 #   ports:
-#     - "80:80"
+#     - "5000:5000"
     volumes:
-      - ./modules/picbox:/picbox
-      - ./var/picbox:/picbox/files
-    environment:
-      - HTTP_AUTH=none
+      - ./modules/pycbox/pycbox.py:/pycbox/pycbox.py
+      - ./var/pycbox:/pycbox/files
 
   gogs:
     image: gogs/gogs

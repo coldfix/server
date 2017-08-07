@@ -13,6 +13,6 @@
 [submodule "goaccess"]
 	path = modules/goaccess
 	url = git@github.com:allinurl/goaccess
-[submodule "picbox"]
-	path = modules/picbox
-	url = git@github.com:coldfix/octo-pic-box
+[submodule "modules/pycbox"]
+	path = modules/pycbox
+	url = git@github.com:coldfix/pycbox
