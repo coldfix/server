@@ -32,6 +32,7 @@ Services
 - goaccess_ on stats.coldfix.de_
 - pypipins_ on pins.coldfix.de_
 - murmur_   on coldfix.de:64738
+- ejabberd_ on coldfix.de
 
 .. _blog:       https://github.com/coldfix/website
 .. _sudoku:     https://github.com/coldfix/sudoku-swi
@@ -40,6 +41,7 @@ Services
 .. _goaccess:   https://github.com/allinurl/goaccess
 .. _pypipins:   https://github.com/coldfix/pypipins
 .. _murmur:     https://github.com/mumble-voip/mumble
+.. _ejabberd:   https://github.com/processone/ejabberd
 
 .. _sudoku.coldfix.de:      https://sudoku.coldfix.de
 .. _gogs.coldfix.de:        https://gogs.coldfix.de
@@ -48,12 +50,54 @@ Services
 .. _pins.coldfix.de:        https://pins.coldfix.de
 
 
+ejabberd maintenance
+~~~~~~~~~~~~~~~~~~~~
+
+Create backup:
+
+.. code-block:: bash
+
+    docker exec server_ejabberd_1 /usr/local/sbin/ejabberdctl backup /opt/ejabberd/backup/ejabberd.backup
+    docker cp server_ejabberd_1:/opt/ejabberd/backup/ejabberd.backup /tmp/ejabberd.backup
+
+Restore backup:
+
+.. code-block:: bash
+
+    docker cp /tmp/ejabberd.backup server_ejabberd_1:/opt/ejabberd/backup/ejabberd.backup
+    docker exec server_ejabberd_1 /usr/local/sbin/ejabberdctl restore /opt/ejabberd/backup/ejabberd.backup
+
+Create admin user:
+
+.. code-block:: bash
+
+    docker exec server_ejabberd_1 \
+        /usr/local/sbin/ejabberdctl register admin coldfix.de "password"
+
+Replace SSL certificate:
+
+.. code-block:: bash
+
+    uid=$(docker exec server_ejabberd_1 id -u ejabberd)
+    gid=$(docker exec server_ejabberd_1 id -g ejabberd)
+    crt=$(pwd)/var/ssl/ejabberd.pem
+    cat /etc/letsencrypt/live/coldfix.de/{fullchain,privkey}.pem $crt
+    chown $uid:$gid $crt
+    chmod 700 $crt
+    docker restart server_ejabberd_1
+
+
 Missing
 ~~~~~~~
 
 The following services running on coldfix.de_ are not yet dockerized:
 
 - letsencrypt
-- ejabberd
 - postfix/dovecot
 - logrotate
+
+
+Big TODOs
+~~~~~~~~~
+
+- drop privileges in all containers

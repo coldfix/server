@@ -101,3 +101,21 @@ services:
     ports:
       - "64738:64738/tcp"
       - "64738:64738/udp"
+
+  ejabberd:
+    image: rroemhild/ejabberd
+    restart: always
+    volumes:
+      - ./etc/ejabberd:/opt/ejabberd/conf
+      - ./var/ejabberd:/opt/ejabberd/database
+      - ./var/ssl:/opt/ejabberd/ssl
+    ports:
+      - "5222:5222"
+      - "5269:5269"
+      - "5280:5280"
+    environment:
+      - XMPP_DOMAIN=coldfix.de coldfix.eu fireflake.de fireflake.eu
+      - TZ=Europe/Berlin
+      - EJABBERD_SKIP_MAKE_SSLCERT=1
+    hostname: coldfix.de
+    domainname: coldfix.de
