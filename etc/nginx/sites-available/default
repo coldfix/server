@@ -3,7 +3,14 @@ server {
     listen      80  default_server;
     listen [::]:80;
     server_name _;
-    return 301 https://$host$request_uri;
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/acme;
+    }
 }
 
 # Fallback (unknown subdomain):

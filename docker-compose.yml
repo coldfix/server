@@ -12,6 +12,7 @@ services:
     volumes:
       - ./etc/nginx:/etc/nginx/
       - /etc/letsencrypt:/etc/letsencrypt
+      - ./var/acme:/var/www/acme
       - ./var/blog:/var/www/blog
       - ./var/pypi:/var/www/pypi
       - ./var/nginx:/var/log/nginx
