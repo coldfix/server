@@ -50,8 +50,23 @@ Services
 .. _pins.coldfix.de:        https://pins.coldfix.de
 
 
-ejabberd maintenance
-~~~~~~~~~~~~~~~~~~~~
+maintenance
+~~~~~~~~~~~
+
+letsencrypt
+-----------
+
+letsencrypt cronjob is currently not run within docker container because it
+needs to restart the mail system which is not yet dockerized. You need to setup
+a cronjob like this manually:
+
+.. code-block:: crontab
+
+    # min   hour    dom     mon     dow     cmd
+    0       5,21    *       *       *       /home/server/cert-renew.sh --wait 60 --quiet
+
+ejabberd
+--------
 
 Create backup:
 

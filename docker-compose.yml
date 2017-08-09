@@ -6,6 +6,17 @@ services:
   # - https://github.com/tomav/docker-mailserver
   # - https://github.com/hardware/mailserver
 
+  # certbot:
+  #   image: certbot/certbot
+  #   restart: "no"
+  #   volumes:
+  #     - /etc/letsencrypt:/etc/letsencrypt
+  #     - ./var/letsencrypt:/var/lib/letsencrypt
+  #     - ./var/acme:/var/www/acme
+  #   command: certbot renew --renew-hook 'touch /var/www/.updated'
+  #   cap_drop:
+  #     - all
+
   nginx:
     build: modules/nginx
     restart: always
