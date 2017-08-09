@@ -5,8 +5,6 @@ server {
                 pics.coldfix.eu pix.coldfix.eu picbox.coldfix.eu
                 pics.fireflake.de pix.fireflake.de picbox.fireflake.de
                 pics.fireflake.eu pix.fireflake.eu picbox.fireflake.eu;
-    access_log /var/log/nginx/access_pics.log;
-    client_max_body_size 100m;
     location / {
         proxy_pass                          http://pycbox:5000;
         proxy_set_header X-Real-IP          $remote_addr;
@@ -15,4 +13,6 @@ server {
         proxy_set_header Upgrade            $http_upgrade;
         proxy_set_header Connection         upgrade;
     }
+    access_log /var/log/nginx/access_pics.log;
+    client_max_body_size 100m;
 }
