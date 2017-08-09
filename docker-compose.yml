@@ -6,7 +6,7 @@ services:
   # - https://github.com/tomav/docker-mailserver
   # - https://github.com/hardware/mailserver
 
-  web:
+  nginx:
     build: modules/nginx
     restart: always
     volumes:
