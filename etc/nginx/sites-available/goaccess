@@ -5,6 +5,6 @@ server {
                 stats.coldfix.eu
                 stats.fireflake.de
                 stats.fireflake.eu;
-    root /var/goaccess/report;
+    root /var/goaccess;
     autoindex on;
 }

@@ -27,6 +27,7 @@ services:
       - ./var/blog:/var/www/blog
       - ./var/pypi:/var/www/pypi
       - ./var/nginx:/var/log/nginx
+      - ./var/goaccess:/var/goaccess
     ports:
       - "443:443"
       - "80:80"
