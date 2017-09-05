@@ -76,10 +76,16 @@ services:
 #   ports:
 #     - "5000:5000"
     volumes:
-      - ./modules/pycbox/pycbox.py:/pycbox/pycbox.py
-      - ./var/pycbox:/pycbox/files
+      - ./modules/pycbox/pycbox:/pycbox/pycbox
+      - ./var/pycbox/files:/pycbox/files
+      - ./var/pycbox/cache:/pycbox/cache
+      - ./var/pycbox/hilite:/pycbox/hilite
     cap_drop:
       - all
+    cap_add:
+      - chown
+      - setgid
+      - setuid
 
   gogs:
     image: gogs/gogs
