@@ -46,7 +46,7 @@ services:
     volumes:
       - ./modules/blog:/blog
       - ./var/blog:/blog/_build
-    command: run-blogdown build
+    command: ./blogdown build
     cap_drop:
       - all
 
@@ -119,8 +119,12 @@ services:
     volumes:
       - ./etc/cryptpad:/cryptpad/customize
       - ./var/cryptpad:/cryptpad/datastore
+    environment:
+      - USE_SSL=true
+      - LOG_TO_STDOUT=true
+      - STORAGE='./storage/file'
 #   ports:
-#     - "3000:3000"     # TODO: needed for websockets?
+#     - "3000:3000"
     cap_drop:
       - all
 
@@ -129,8 +133,8 @@ services:
     restart: always
     volumes:
       - ./var/pins:/tmp/shields.py
-#   ports:
-#     - "8080:8080"
+    ports:
+      - "8080:8080"
     cap_drop:
       - all
 
@@ -155,13 +159,13 @@ services:
     ports:
       - "64738:64738/tcp"
       - "64738:64738/udp"
-    cap_drop:
-      - all
-    cap_add:
-      - chown
-      - dac_override
-      - setgid
-      - setuid
+   #cap_drop:
+   #  - all
+   #cap_add:
+   #  - chown
+   #  - dac_override
+   #  - setgid
+   #  - setuid
 
   ejabberd:
     image: rroemhild/ejabberd
