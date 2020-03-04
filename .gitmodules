@@ -7,9 +7,6 @@
 [submodule "cryptpad"]
 	path = modules/cryptpad
 	url = git@github.com:xwiki-labs/cryptpad.git
-[submodule "goaccess"]
-	path = modules/goaccess
-	url = git@github.com:allinurl/goaccess
 [submodule "modules/pycbox"]
 	path = modules/pycbox
 	url = git@github.com:coldfix/pycbox

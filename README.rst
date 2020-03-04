@@ -29,7 +29,6 @@ Services
 - sudoku_   on sudoku.coldfix.de_
 - gogs_     on gogs.coldfix.de_
 - cryptpad_ on cryptpad.coldfix.de_
-- goaccess_ on stats.coldfix.de_
 - murmur_   on coldfix.de:64738
 - ejabberd_ on coldfix.de
 
@@ -37,14 +36,12 @@ Services
 .. _sudoku:     https://github.com/coldfix/sudoku-swi
 .. _gogs:       https://github.com/gogits/gogs
 .. _cryptpad:   https://github.com/xwiki-labs/cryptpad
-.. _goaccess:   https://github.com/allinurl/goaccess
 .. _murmur:     https://github.com/mumble-voip/mumble
 .. _ejabberd:   https://github.com/processone/ejabberd
 
 .. _sudoku.coldfix.de:      https://sudoku.coldfix.de
 .. _gogs.coldfix.de:        https://gogs.coldfix.de
 .. _cryptpad.coldfix.de:    https://cryptpad.coldfix.de
-.. _stats.coldfix.de:       https://statst.coldfix.de
 
 
 maintenance

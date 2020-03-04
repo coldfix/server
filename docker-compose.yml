@@ -27,7 +27,6 @@ services:
       - ./var/blog:/var/www/blog
       - ./var/pypi:/var/www/pypi
       - ./var/nginx:/var/log/nginx
-      - ./var/goaccess:/var/goaccess
     ports:
       - "443:443"
       - "80:80"
@@ -47,18 +46,6 @@ services:
       - ./modules/blog:/blog
       - ./var/blog:/blog/_build
     command: ./blogdown build
-    cap_drop:
-      - all
-
-  goaccess:
-    build: modules/goaccess
-    restart: always
-    volumes:
-      - ./etc/goaccess:/srv/data
-      - ./var/goaccess:/srv/report
-      - ./var/nginx:/srv/logs
-    ports:
-      - "7890:7890"
     cap_drop:
       - all
 
