@@ -16,7 +16,6 @@ RUN apk update && \
 VOLUME /etc/nginx
 VOLUME /etc/letsencrypt
 VOLUME /var/www/blog
-VOLUME /var/www/pypi
 VOLUME /var/log/nginx
 EXPOSE 80 443
 

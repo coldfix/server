@@ -1,7 +1,7 @@
 version: "3"
 services:
 
-  # TODO: migrate data: pypi / logs / libs / pdfs (blog)
+  # TODO: migrate data: logs / libs / pdfs (blog)
   # postfix/dovecot:
   # - https://github.com/tomav/docker-mailserver
   # - https://github.com/hardware/mailserver
@@ -25,7 +25,6 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
       - ./var/acme:/var/www/acme
       - ./var/blog:/var/www/blog
-      - ./var/pypi:/var/www/pypi
       - ./var/nginx:/var/log/nginx
     ports:
       - "443:443"
