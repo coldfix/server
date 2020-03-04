@@ -1,0 +1,12 @@
+server {
+    listen      443 ssl;
+    listen [::]:443 ssl;
+    server_name ddns.coldfix.de
+                ddns.coldfix.eu
+                ddns.fireflake.de
+                ddns.fireflake.eu;
+    location / {
+        proxy_pass http://ddns:8080;
+    }
+    access_log /var/log/nginx/access_ddns.log;
+}

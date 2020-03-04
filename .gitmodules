@@ -10,3 +10,6 @@
 [submodule "modules/pycbox"]
 	path = modules/pycbox
 	url = git@github.com:coldfix/pycbox
+[submodule "modules/ddns"]
+	path = modules/ddns
+	url = git@github.com:pboehm/ddns

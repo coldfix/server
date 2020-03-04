@@ -153,3 +153,34 @@ services:
     domainname: coldfix.de
     cap_drop:
       - all
+
+  # dyndns:
+  ddns:
+    restart: always
+    build:
+      context: modules/ddns
+      dockerfile: docker/ddns/Dockerfile
+    depends_on:
+      - ddns_redis
+#   ports:
+#     - "8082:8080"
+    environment:
+      DDNS_DOMAIN:     dns.coldfix.de
+      DDNS_SOA_DOMAIN: ddns.coldfix.de
+      DDNS_REDIS_HOST: ddns_redis:6379
+
+  ddns_powerdns:
+    build: modules/ddns/docker/powerdns
+    restart: always
+    depends_on:
+      - ddns
+    ports:
+      - "53:53/udp"
+    environment:
+      PDNS_REMOTE_HTTP_HOST: ddns:8053
+
+  ddns_redis:
+    restart: always
+    image: redis:4-alpine
+    volumes:
+      - "./var/ddns:/data"
