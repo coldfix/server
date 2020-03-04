@@ -128,26 +128,6 @@ services:
     cap_drop:
       - all
 
-  pins:
-    build: modules/pins
-    restart: always
-    volumes:
-      - ./var/pins:/tmp/shields.py
-    ports:
-      - "8080:8080"
-    cap_drop:
-      - all
-
-  redis:
-    image: redis:alpine
-    restart: always
-    cap_drop:
-      - all
-    cap_add:
-      - chown
-      - setgid
-      - setuid
-
   murmur:
     build: modules/murmur
     restart: always

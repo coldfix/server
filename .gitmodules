@@ -4,9 +4,6 @@
 [submodule "blog"]
 	path = modules/blog
 	url = git@github.com:coldfix/website
-[submodule "pins"]
-	path = modules/pins
-	url = git@github.com:coldfix/pypipins
 [submodule "cryptpad"]
 	path = modules/cryptpad
 	url = git@github.com:xwiki-labs/cryptpad.git
