@@ -109,7 +109,6 @@ The following services running on coldfix.de_ are not yet dockerized:
 
 - letsencrypt
 - postfix/dovecot
-- logrotate
 
 
 Big TODOs

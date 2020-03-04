@@ -1,7 +1,12 @@
 FROM alpine:edge
 
+WORKDIR /nginx
+COPY ./start.sh         /nginx/start.sh
+COPY ./logrotate.conf   /etc/logrotate.conf
+COPY ./crontab          /etc/crontabs/root
+
 RUN apk update && \
-    apk add -u nginx tini bash && \
+    apk add -u nginx tini bash logrotate && \
     rm -rf /etc/nginx && \
     adduser -u 1000 -D -S -G www-data www-data && \
     mkdir -p /var/log/nginx /var/tmp/nginx/client_body && \
@@ -16,4 +21,4 @@ VOLUME /var/log/nginx
 EXPOSE 80 443
 
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/nginx/start.sh"]
