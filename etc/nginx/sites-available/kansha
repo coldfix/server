@@ -8,5 +8,5 @@ server {
     location / {
         proxy_pass http://kansha:8080;
     }
-    access_log /var/log/nginx/access_gogs.log;
+    access_log /var/log/nginx/access_kansha.log;
 }
