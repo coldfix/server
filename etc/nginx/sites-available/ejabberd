@@ -1,0 +1,12 @@
+server {
+    listen      443 ssl;
+    listen [::]:443 ssl;
+    server_name ejabberd.coldfix.de
+                ejabberd.coldfix.eu
+                ejabberd.fireflake.de
+                ejabberd.fireflake.eu;
+    location / {
+        proxy_pass http://ejabberd:5280;
+    }
+    access_log /var/log/nginx/access_ejabberd.log;
+}

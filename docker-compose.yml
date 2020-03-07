@@ -146,8 +146,9 @@ services:
       - "1883:1883"     # mod_mqtt
       - "5222:5222"     # ejabberd_c2s
       - "5269:5269"     # ejabberd_s2s_in
-      - "5280:5280"     # ejabberd_http/http
-      - "5443:5443"     # ejabberd_http/https
+    # tunneled through nginx:
+    # - "5280:5280"     # ejabberd_http/http
+    # - "5443:5443"     # ejabberd_http/https
     environment:
       - TZ=Europe/Berlin
     cap_drop:

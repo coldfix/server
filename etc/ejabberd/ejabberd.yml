@@ -61,8 +61,16 @@ listen:
     port: 5280
     ip: "0.0.0.0"
     module: ejabberd_http
+    # NOTE: we tunnel this interface through nginx to add SSL, otherwise we should
+    # NOT expose this functionality unencrypted:
     request_handlers:
       "/admin": ejabberd_web_admin
+      "/api": mod_http_api
+      "/bosh": mod_bosh
+      "/captcha": ejabberd_captcha
+      "/upload": mod_http_upload
+      "/ws": ejabberd_http_ws
+      "/oauth": ejabberd_oauth
   -
     port: 1883
     ip: "0.0.0.0"
@@ -130,7 +138,7 @@ acl:
       - ::FFFF:127.0.0.1/128
   admin:
     user:
-      - "admin@localhost"
+      - "admin@coldfix.de"
 
 access_rules:
   local:
