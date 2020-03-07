@@ -134,24 +134,24 @@ services:
    #  - setuid
 
   ejabberd:
-    image: rroemhild/ejabberd
+    build: modules/ejabberd
     restart: always
     volumes:
-      - ./etc/ejabberd:/opt/ejabberd/conf
-      - ./var/ejabberd:/opt/ejabberd/database
-      - ./var/ssl:/opt/ejabberd/ssl
+      - ./etc/ejabberd:/home/ejabberd/conf
+      - ./var/ejabberd/database:/home/ejabberd/database
+      - ./var/ejabberd/logs:/home/ejabberd/logs
+      - ./var/ejabberd/ssl:/home/ejabberd/ssl
+      - ./var/ejabberd/upload:/home/ejabberd/upload
     ports:
-      - "5222:5222"
-      - "5269:5269"
-      - "5280:5280"
+      - "1883:1883"     # mod_mqtt
+      - "5222:5222"     # ejabberd_c2s
+      - "5269:5269"     # ejabberd_s2s_in
+      - "5280:5280"     # ejabberd_http/http
+      - "5443:5443"     # ejabberd_http/https
     environment:
-      - XMPP_DOMAIN=coldfix.de coldfix.eu fireflake.de fireflake.eu
       - TZ=Europe/Berlin
-      - EJABBERD_SKIP_MAKE_SSLCERT=1
-    hostname: coldfix.de
-    domainname: coldfix.de
-  #   cap_drop:
-  #     - all
+    cap_drop:
+      - all
 
   # dyndns:
   ddns:

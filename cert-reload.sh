@@ -19,10 +19,9 @@ docker exec server_murmur_1 pkill -USR1 murmurd
 # jabber
 uid=$(docker exec server_ejabberd_1 id -u ejabberd)
 gid=$(docker exec server_ejabberd_1 id -g ejabberd)
-cat /etc/letsencrypt/live/coldfix.de/{fullchain,privkey}.pem >ejabberd.pem
-chown $uid:$gid ejabberd.pem
-chmod 700 ejabberd.pem
-mv ejabberd.pem /home/server/var/ssl/ejabberd.pem
+cp /etc/letsencrypt/live/coldfix.de/{fullchain,privkey}.pem var/ejabberd/ssl/
+chown $uid:$gid var/ejabberd/ssl/{fullchain,privkey}.pem
+chmod 700 var/ejabberd/ssl/{fullchain,privkey}.pem
 
 # According to https://github.com/processone/ejabberd/issues/1109
 # ejabberd automatically reloads SSL certificates, so no need for:

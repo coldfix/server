@@ -1,27 +1,22 @@
 ###
-###               ejabberd configuration file
+###              ejabberd configuration file
 ###
+### The parameters used in this configuration file are explained at
 ###
-
-### The parameters used in this configuration file are explained in more detail
-### in the ejabberd Installation and Operation Guide.
-### Please consult the Guide in case of doubts, it is included with
-### your copy of ejabberd, and is also available online at
-### http://www.process-one.net/en/ejabberd/docs/
-
-###   =======
-###   LOGGING
+###       https://docs.ejabberd.im/admin/configuration
+###
+### The configuration file is written in YAML.
+### *******************************************************
+### *******           !!! WARNING !!!               *******
+### *******     YAML IS INDENTATION SENSITIVE       *******
+### ******* MAKE SURE YOU INDENT SECTIONS CORRECTLY *******
+### *******************************************************
+### Refer to http://en.wikipedia.org/wiki/YAML for the brief description.
+###
 
 loglevel: 4
 log_rotate_size: 10485760
-log_rotate_count: 0
-log_rate_limit: 100
-
-## watchdog_admins:
-##   - "bob@example.com"
-
-###   ================
-###   SERVED HOSTNAMES
+log_rotate_count: 1
 
 hosts:
   - "coldfix.de"
@@ -29,266 +24,263 @@ hosts:
   - "fireflake.de"
   - "fireflake.eu"
 
-##
-## route_subdomains: Delegate subdomains to other XMPP servers.
-## For example, if this ejabberd serves example.org and you want
-## to allow communication with an XMPP server called im.example.org.
-##
-## route_subdomains: s2s
+certfiles:
+  - /home/ejabberd/ssl/fullchain.pem
+  - /home/ejabberd/ssl/privkey.pem
 
-###   ===============
-###   LISTENING PORTS
+ca_file: "/home/ejabberd/ssl/fullchain.pem"
 
 listen:
   -
     port: 5222
+    ip: "0.0.0.0"
     module: ejabberd_c2s
-    starttls_required: true
-    protocol_options:
-      - "no_sslv3"
-      - "no_tlsv1"
-    max_stanza_size: 65536
+    max_stanza_size: 262144
     shaper: c2s_shaper
     access: c2s
-    ciphers: "HIGH:!aNULL:!3DES"
+    starttls_required: true
   -
     port: 5269
+    ip: "0.0.0.0"
     module: ejabberd_s2s_in
-  -
-    port: 4560
-    module: ejabberd_xmlrpc
-    access_commands:
-      configure:
-        all: []
-
-  -
-    port: 5280
-    module: ejabberd_http
-    request_handlers:
-      "/websocket": ejabberd_http_ws
-    ##  "/pub/archive": mod_http_fileserver
-    web_admin: true
-    http_bind: true
-    ## register: true
-    captcha: true
-    tls: true
-    certfile: "/opt/ejabberd/ssl/ejabberd.pem"
-
+    max_stanza_size: 524288
   -
     port: 5443
+    ip: "0.0.0.0"
+    module: ejabberd_http
+    tls: true
+    request_handlers:
+      "/admin": ejabberd_web_admin
+      "/api": mod_http_api
+      "/bosh": mod_bosh
+      "/captcha": ejabberd_captcha
+      "/upload": mod_http_upload
+      "/ws": ejabberd_http_ws
+      "/oauth": ejabberd_oauth
+  -
+    port: 5280
+    ip: "0.0.0.0"
     module: ejabberd_http
     request_handlers:
-      "": mod_http_upload
-    tls: true
-    certfile: "/opt/ejabberd/ssl/ejabberd.pem"
+      "/admin": ejabberd_web_admin
+  -
+    port: 1883
+    ip: "0.0.0.0"
+    module: mod_mqtt
+    backlog: 1000
+  ##
+  ## https://docs.ejabberd.im/admin/configuration/#stun-and-turn
+  ## ejabberd_stun: Handles STUN Binding requests
+  ##
+  ##-
+  ##  port: 3478
+  ##  ip: "0.0.0.0"
+  ##  transport: udp
+  ##  module: ejabberd_stun
+  ##  use_turn: true
+  ##  turn_ip: "{{ IP }}"
+  ##  auth_type: user
+  ##  auth_realm: "example.com"
+  ##-
+  ##  port: 3478
+  ##  ip: "0.0.0.0"
+  ##  module: ejabberd_stun
+  ##  use_turn: true
+  ##  turn_ip: "{{ IP }}"
+  ##  auth_type: user
+  ##  auth_realm: "example.com"
+  ##-
+  ##  port: 5349
+  ##  ip: "0.0.0.0"
+  ##  module: ejabberd_stun
+  ##  certfile: "/home/ejabberd/conf/server.pem"
+  ##  tls: true
+  ##  use_turn: true
+  ##  turn_ip: "{{ IP }}"
+  ##  auth_type: user
+  ##  auth_realm: "example.com"
+  ##
+  ## https://docs.ejabberd.im/admin/configuration/#sip
+  ## To handle SIP (VOIP) requests:
+  ##
+  ##-
+  ##  port: 5060
+  ##  ip: "0.0.0.0"
+  ##  transport: udp
+  ##  module: ejabberd_sip
+  ##-
+  ##  port: 5060
+  ##  ip: "0.0.0.0"
+  ##  module: ejabberd_sip
+  ##-
+  ##  port: 5061
+  ##  ip: "0.0.0.0"
+  ##  module: ejabberd_sip
+  ##  tls: true
 
-
-
-###   SERVER TO SERVER
-###   ================
-#s2s_use_starttls: required
 s2s_use_starttls: optional
-s2s_certfile: "/opt/ejabberd/ssl/ejabberd.pem"
-s2s_protocol_options:
-  - "no_sslv3"
-  #- "no_tlsv1"
-#s2s_ciphers: "HIGH:!aNULL:!3DES"
 
+acl:
+  local:
+    user_regexp: ""
+  loopback:
+    ip:
+      - 127.0.0.0/8
+      - ::1/128
+      - ::FFFF:127.0.0.1/128
+  admin:
+    user:
+      - "admin@localhost"
 
-###   ==============
-###   AUTHENTICATION
+access_rules:
+  local:
+    allow: local
+  c2s:
+    deny: blocked
+    allow: all
+  announce:
+    allow: admin
+  configure:
+    allow: admin
+  muc_create:
+    allow: local
+  pubsub_createnode:
+    allow: local
+  trusted_network:
+    allow: loopback
+
+api_permissions:
+  "console commands":
+    from:
+      - ejabberd_ctl
+    who: all
+    what: "*"
+  "admin access":
+    who:
+      access:
+        allow:
+          acl: loopback
+          acl: admin
+      oauth:
+        scope: "ejabberd:admin"
+        access:
+          allow:
+            acl: loopback
+            acl: admin
+    what:
+      - "*"
+      - "!stop"
+      - "!start"
+  "public commands":
+    who:
+      ip: 127.0.0.1/8
+    what:
+      - status
+      - connected_users_number
+
+shaper:
+  normal: 1000
+  fast: 50000
+
+shaper_rules:
+  max_user_sessions: 10
+  max_user_offline_messages:
+    5000: admin
+    100: all
+  c2s_shaper:
+    none: admin
+    normal: all
+  s2s_shaper: fast
+
+max_fsm_queue: 10000
+
+acme:
+   contact: "mailto:admin@coldfix.de"
+   ca_url: "https://acme-v02.api.letsencrypt.org/directory"
 
 auth_method:
   - internal
 
 auth_password_format: scram
 
-
-## LDAP authentication
-
-###   ===============
-###   TRAFFIC SHAPERS
-
-shaper:
-  normal: 1000
-  fast: 50000
-max_fsm_queue: 1000
-
-###   ====================
-###   ACCESS CONTROL LISTS
-
-acl:
-  admin:
-    user:
-      - "admin": "coldfix.de"
-  local:
-    user_regexp: ""
-
-###   ============
-###   ACCESS RULES
-
-access:
-  ## Maximum number of simultaneous sessions allowed for a single user:
-  max_user_sessions:
-    all: 10
-  ## Maximum number of offline messages that users can have:
-  max_user_offline_messages:
-    admin: 5000
-    all: 100
-  ## This rule allows access only for local users:
-  local:
-    local: allow
-  ## Only non-blocked users can use c2s connections:
-  c2s:
-    blocked: deny
-    all: allow
-  ## For C2S connections, all users except admins use the "normal" shaper
-  c2s_shaper:
-    admin: none
-    all: normal
-  ## All S2S connections use the "fast" shaper
-  s2s_shaper:
-    all: fast
-  ## Only admins can send announcement messages:
-  announce:
-    admin: allow
-  ## Only admins can use the configuration interface:
-  configure:
-    admin: allow
-  ## Admins of this server are also admins of the MUC service:
-  muc_admin:
-    admin: allow
-  ## Only accounts of the local ejabberd server, or only admins can create rooms, depending on environment variable:
-  muc_create:
-    local: allow
-
-  ## All users are allowed to use the MUC service:
-  muc:
-    all: allow
-  ## Only accounts on the local ejabberd server can create Pubsub nodes:
-  pubsub_createnode:
-    local: allow
-  ## In-band registration allows registration of any possible username.
-  register:
-    all: allow
-
-  ## Only allow to register from localhost
-  trusted_network:
-    loopback: allow
-  soft_upload_quota:
-    all: 400 # MiB
-  hard_upload_quota:
-    all: 500 # MiB
-
-
-language: "en"
-
-###   =======
-###   MODULES
-
 modules:
-  mod_s2s_dialback: {}
   mod_adhoc: {}
-  mod_announce: # recommends mod_adhoc
+  mod_admin_extra: {}
+  mod_announce:
     access: announce
-  mod_blocking: {} # requires mod_privacy
+  mod_avatar: {}
+  mod_blocking: {}
+  mod_bosh: {}
   mod_caps: {}
   mod_carboncopy: {}
-  mod_client_state:
-    queue_chat_states: true
-    queue_presence: false
-  mod_configure: {} # requires mod_adhoc
+  mod_client_state: {}
+  mod_configure: {}
   mod_disco: {}
-  ## mod_echo: {}
-  mod_http_bind: {}
-  ## mod_http_fileserver:
-  ##   docroot: "/var/www"
-  ##   accesslog: "/var/log/ejabberd/access.log"
+  mod_fail2ban: {}
+  mod_http_api: {}
+  mod_http_upload:
+    docroot: "/opt/ejabberd/upload"
+    put_url: https://@HOST@:5443/upload
   mod_last: {}
   mod_mam:
-    default: always
+    db_type: sql
+    assume_mam_usage: true
+    default: never
+  mod_mqtt: {}
   mod_muc:
-    host: "conference.@HOST@"
-    access: muc
+    access:
+      - allow
+    access_admin:
+      - allow: admin
     access_create: muc_create
     access_persistent: muc_create
-    access_admin: muc_admin
-    history_size: 50
+    access_mam:
+      - allow
     default_room_options:
-      persistent: true
-  ## mod_muc_log: {}
-  ## mod_multicast: {}
+      allow_subscription: true  # enable MucSub
+      mam: false
+  mod_muc_admin: {}
   mod_offline:
     access_max_user_messages: max_user_offline_messages
   mod_ping: {}
-  ## mod_pres_counter:
-  ##   count: 5
-  ##   interval: 60
   mod_privacy: {}
   mod_private: {}
-  ## mod_proxy65: {}
+  mod_proxy65:
+    access: local
+    max_connections: 5
   mod_pubsub:
     access_createnode: pubsub_createnode
-    ## reduces resource comsumption, but XEP incompliant
-    ignore_pep_from_offline: true
-    ## XEP compliant, but increases resource comsumption
-    ## ignore_pep_from_offline: false
-    last_item_cache: false
     plugins:
-      - "flat"
-      - "hometree"
-      - "pep" # pep requires mod_caps
+      - flat
+      - pep
+    force_node_config:
+      ## Avoid buggy clients to make their bookmarks public
+      storage:bookmarks:
+        access_model: whitelist
+  mod_push: {}
+  mod_push_keepalive: {}
   mod_register:
-    ##
-    ## Protect In-Band account registrations with CAPTCHA.
-    ##
-    ## captcha_protected: true
-
-    ##
-    ## Set the minimum informational entropy for passwords.
-    ##
-    ## password_strength: 32
-
-    ##
-    ## After successful registration, the user receives
-    ## a message with this subject and body.
-    ##
-    welcome_message:
-      subject: "Welcome!"
-      body: |-
-        Hi.
-        Welcome to this XMPP server.
-
-    ##
-    ## Only clients in the server machine can register accounts
-    ##
-
-    access: register
-  mod_roster: {}
+    ## Only accept registration requests from the "trusted"
+    ## network (see access_rules section above).
+    ## Think twice before enabling registration from any
+    ## address. See the Jabber SPAM Manifesto for details:
+    ## https://github.com/ge0rg/jabber-spam-fighting-manifesto
+    ip_access: trusted_network
+  mod_roster:
+    versioning: true
+  mod_sip: {}
+  mod_s2s_dialback: {}
   mod_shared_roster: {}
   mod_stats: {}
+  mod_stream_mgmt:
+    resend_on_timeout: if_offline
   mod_time: {}
   mod_vcard: {}
+  mod_vcard_xupdate: {}
+  mod_version:
+    show_os: false
 
-  mod_http_upload:
-    docroot: "/opt/ejabberd/upload"
-    put_url: "https://@HOST@:5443"
-  mod_http_upload_quota:
-    max_days: 10
-
-###   ============
-###   HOST CONFIG
-
-host_config:
-  "coldfix.de":
-    domain_certfile: "/opt/ejabberd/ssl/ejabberd.pem"
-  "coldfix.eu":
-    domain_certfile: "/opt/ejabberd/ssl/ejabberd.pem"
-  "fireflake.de":
-    domain_certfile: "/opt/ejabberd/ssl/ejabberd.pem"
-  "fireflake.eu":
-    domain_certfile: "/opt/ejabberd/ssl/ejabberd.pem"
-
-###   =====================
-###   SESSION MANAGEMENT DB
-sm_db_type: mnesia
+### Local Variables:
+### mode: yaml
+### End:
+### vim: set filetype=yaml tabstop=8
