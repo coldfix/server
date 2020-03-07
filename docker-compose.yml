@@ -150,8 +150,8 @@ services:
       - EJABBERD_SKIP_MAKE_SSLCERT=1
     hostname: coldfix.de
     domainname: coldfix.de
-    cap_drop:
-      - all
+  #   cap_drop:
+  #     - all
 
   # dyndns:
   ddns:
