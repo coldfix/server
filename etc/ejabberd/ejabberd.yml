@@ -27,8 +27,11 @@ hosts:
 certfiles:
   - /home/ejabberd/ssl/fullchain.pem
   - /home/ejabberd/ssl/privkey.pem
-
 ca_file: "/home/ejabberd/ssl/fullchain.pem"
+
+default_db: sql
+sql_type: sqlite
+sql_database: "/home/ejabberd/database/ejabberd.sqlite"
 
 listen:
   -
