@@ -91,14 +91,6 @@ services:
       - setgid
       - setuid
 
-  kansha:
-    image: netng/kansha
-    restart: always
-#   ports:
-#     - "8080:8080"
-    cap_drop:
-      - all
-
   cryptpad:
     build: modules/cryptpad
     restart: always
