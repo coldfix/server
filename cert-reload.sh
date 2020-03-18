@@ -1,6 +1,8 @@
 #! /bin/bash
 set -x
 
+root=$(readlink -f $(dirname "$BASH_SOURCE"))
+
 # webserver
 # See: http://nginx.org/en/docs/beginners_guide.html#control
 # See: http://nginx.org/en/docs/control.html
@@ -19,9 +21,9 @@ docker exec server_murmur_1 pkill -USR1 murmurd
 # jabber
 uid=$(docker exec server_ejabberd_1 id -u ejabberd)
 gid=$(docker exec server_ejabberd_1 id -g ejabberd)
-cp /etc/letsencrypt/live/coldfix.de/{fullchain,privkey}.pem var/ejabberd/ssl/
-chown $uid:$gid var/ejabberd/ssl/{fullchain,privkey}.pem
-chmod 700 var/ejabberd/ssl/{fullchain,privkey}.pem
+cp /etc/letsencrypt/live/coldfix.de/{fullchain,privkey}.pem $root/var/ejabberd/ssl/
+chown $uid:$gid $root/var/ejabberd/ssl/{fullchain,privkey}.pem
+chmod 700 $root/var/ejabberd/ssl/{fullchain,privkey}.pem
 
 # According to https://github.com/processone/ejabberd/issues/1109
 # ejabberd automatically reloads SSL certificates, so no need for:
