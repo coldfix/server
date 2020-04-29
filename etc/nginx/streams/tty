@@ -1,0 +1,8 @@
+stream {
+    server {
+        listen 6543 ssl so_keepalive=30m::10;
+        proxy_pass tty-server:6543;
+        ssl_certificate     /etc/letsencrypt/live/coldfix.de/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/coldfix.de/privkey.pem;
+    }
+}

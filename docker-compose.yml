@@ -29,6 +29,7 @@ services:
     ports:
       - "443:443"
       - "80:80"
+      - "6543:6543"
     cap_drop:
       - all
     cap_add:
@@ -128,6 +129,18 @@ services:
     # - "5443:5443"     # ejabberd_http/https
     environment:
       - TZ=Europe/Berlin
+    cap_drop:
+      - all
+
+  # tty-server
+  tty-server:
+    build: modules/tty-server
+    restart: always
+    # ports:
+    # - "5000:5000"
+    # - "6543:6543"
+    environment:
+      URL: https://tty.coldfix.de
     cap_drop:
       - all
 

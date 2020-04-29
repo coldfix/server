@@ -10,3 +10,6 @@
 [submodule "modules/ddns"]
 	path = modules/ddns
 	url = git@github.com:pboehm/ddns
+[submodule "modules/tty-server"]
+	path = modules/tty-server
+	url = git@github.com:elisescu/tty-server

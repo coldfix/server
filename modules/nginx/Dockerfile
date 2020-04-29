@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM nginx:alpine
 
 WORKDIR /nginx
 COPY ./start.sh         /nginx/start.sh
@@ -6,7 +6,7 @@ COPY ./logrotate.conf   /etc/logrotate.conf
 COPY ./crontab          /etc/crontabs/root
 
 RUN apk update && \
-    apk add -u nginx tini bash logrotate && \
+    apk add -u tini bash logrotate && \
     rm -rf /etc/nginx && \
     adduser -u 1000 -D -S -G www-data www-data && \
     mkdir -p /var/log/nginx /var/tmp/nginx/client_body && \

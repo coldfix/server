@@ -1,0 +1,12 @@
+server {
+    listen      443 ssl;
+    listen [::]:443 ssl;
+    server_name tty.coldfix.de
+                tty.coldfix.eu
+                tty.fireflake.de
+                tty.fireflake.eu;
+    location / {
+        proxy_pass http://tty-server:5000;
+    }
+    access_log /var/log/nginx/access_tty.log;
+}
