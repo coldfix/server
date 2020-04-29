@@ -91,21 +91,6 @@ services:
       - setgid
       - setuid
 
-  cryptpad:
-    build: modules/cryptpad
-    restart: always
-    volumes:
-      - ./etc/cryptpad:/cryptpad/customize
-      - ./var/cryptpad:/cryptpad/datastore
-    environment:
-      - USE_SSL=true
-      - LOG_TO_STDOUT=true
-      - STORAGE='./storage/file'
-#   ports:
-#     - "3000:3000"
-    cap_drop:
-      - all
-
   murmur:
     build: modules/murmur
     restart: always
