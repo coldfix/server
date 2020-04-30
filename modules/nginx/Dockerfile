@@ -7,11 +7,7 @@ COPY ./crontab          /etc/crontabs/root
 
 RUN apk update && \
     apk add -u tini bash logrotate && \
-    rm -rf /etc/nginx && \
-    adduser -u 1000 -D -S -G www-data www-data && \
-    mkdir -p /var/log/nginx /var/tmp/nginx/client_body && \
-    chown www-data:www-data /var/tmp/nginx/client_body && \
-    chmod 755 /var /var/tmp /var/tmp/nginx
+    rm -rf /etc/nginx
 
 VOLUME /etc/nginx
 VOLUME /etc/letsencrypt
