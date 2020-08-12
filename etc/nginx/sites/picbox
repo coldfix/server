@@ -1,6 +1,6 @@
 server {
-    listen      443 ssl;
-    listen [::]:443 ssl;
+    listen      443 ssl http2;
+    listen [::]:443 ssl http2;
     server_name pics.coldfix.de pix.coldfix.de picbox.coldfix.de
                 pics.coldfix.eu pix.coldfix.eu picbox.coldfix.eu
                 pics.fireflake.de pix.fireflake.de picbox.fireflake.de

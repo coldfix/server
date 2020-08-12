@@ -15,8 +15,8 @@ server {
 
 # Fallback (unknown subdomain):
 server {
-    listen      443 default_server ssl;
-    listen [::]:443 ssl;
+    listen      443 ssl http2 default_server;
+    listen [::]:443 ssl http2;
     server_name _;
     location / {
         internal;

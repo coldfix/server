@@ -1,6 +1,6 @@
 server {
-    listen      443 ssl;
-    listen [::]:443 ssl;
+    listen      443 ssl http2;
+    listen [::]:443 ssl http2;
     server_name coldfix.de www.coldfix.de blog.coldfix.de
                 coldfix.eu www.coldfix.eu blog.coldfix.eu
                 fireflake.de www.fireflake.de blog.fireflake.de
