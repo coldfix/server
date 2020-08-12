@@ -16,10 +16,10 @@ docker run --rm \
     -v "$root/var/letsencrypt":/var/lib/letsencrypt \
     -v /etc/letsencrypt:/etc/letsencrypt \
     --cap-drop=all \
-    certbot/dns-netcup certonly \
-        --authenticator certbot-dns-netcup:dns-netcup \
-        --certbot-dns-netcup:dns-netcup-credentials /var/lib/letsencrypt/netcup_credentials.ini \
-        --certbot-dns-netcup:dns-netcup-propagation-seconds 900 \
+    certbot/dns-netcup certbot certonly \
+        --authenticator dns-netcup \
+        --dns-netcup-credentials /var/lib/letsencrypt/netcup_credentials.ini \
+        --dns-netcup-propagation-seconds 900 \
         --no-self-upgrade \
         --keep-until-expiring --non-interactive --expand \
         --server https://acme-v02.api.letsencrypt.org/directory \
