@@ -27,4 +27,5 @@ chmod 700 $root/var/ejabberd/ssl/{fullchain,privkey}.pem
 
 # According to https://github.com/processone/ejabberd/issues/1109
 # ejabberd automatically reloads SSL certificates, so no need for:
-# docker restart server_ejabberd_1
+# docker exec -t server_ejabberd_1 /home/ejabberd/bin/ejabberdctl restart
+docker exec -t server_ejabberd_1 /home/ejabberd/bin/ejabberdctl reload-config
