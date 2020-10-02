@@ -150,6 +150,12 @@ services:
     build:
       context: modules/ddns
       dockerfile: docker/ddns/Dockerfile
+    command: >
+      /go/bin/ddns
+      --domain=${DDNS_DOMAIN}
+      --soa_fqdn=${DDNS_SOA_DOMAIN}
+      --redis=${DDNS_REDIS_HOST}
+      --expiration-days=${DDNS_EXPIRATION}
     depends_on:
       - ddns_redis
 #   ports:
@@ -158,6 +164,7 @@ services:
       DDNS_DOMAIN:     dns.coldfix.de
       DDNS_SOA_DOMAIN: ddns.coldfix.de
       DDNS_REDIS_HOST: ddns_redis:6379
+      DDNS_EXPIRATION: 180
 
   ddns_powerdns:
     build: modules/ddns/docker/powerdns
