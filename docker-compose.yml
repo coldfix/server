@@ -132,13 +132,13 @@ services:
     cap_drop:
       - all
 
-  # tty-server
-  tty-server:
-    build: modules/tty-server
+  # tty-proxy
+  tty-proxy:
+    build: modules/tty-proxy
     restart: always
     # ports:
-    # - "5000:5000"
-    # - "6543:6543"
+    # - "6543:3456"
+    # - "8080:8080"
     environment:
       URL: https://tty.coldfix.de
     cap_drop:

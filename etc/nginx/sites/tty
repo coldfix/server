@@ -6,7 +6,7 @@ server {
                 tty.fireflake.de
                 tty.fireflake.eu;
     location / {
-        proxy_pass http://tty-server:5000;
+        proxy_pass http://tty-proxy:8080;
     }
     access_log /var/log/nginx/access_tty.log;
 }
