@@ -57,22 +57,22 @@ services:
     cap_drop:
       - all
 
-  pycbox:
-    build: modules/pycbox
-    restart: always
-#   ports:
-#     - "5000:5000"
-    volumes:
-      - ./modules/pycbox/pycbox:/pycbox/pycbox
-      - ./var/pycbox/files:/pycbox/files
-      - ./var/pycbox/cache:/pycbox/cache
-      - ./var/pycbox/hilite:/pycbox/hilite
-    cap_drop:
-      - all
-    cap_add:
-      - chown
-      - setgid
-      - setuid
+#   pycbox:
+#     build: modules/pycbox
+#     restart: always
+# #   ports:
+# #     - "5000:5000"
+#     volumes:
+#       - ./modules/pycbox/pycbox:/pycbox/pycbox
+#       - ./var/pycbox/files:/pycbox/files
+#       - ./var/pycbox/cache:/pycbox/cache
+#       - ./var/pycbox/hilite:/pycbox/hilite
+#     cap_drop:
+#       - all
+#     cap_add:
+#       - chown
+#       - setgid
+#       - setuid
 
   gogs:
     image: gogs/gogs
