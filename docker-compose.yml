@@ -2,9 +2,6 @@ version: "3"
 services:
 
   # TODO: migrate data: logs / libs / pdfs (blog)
-  # postfix/dovecot:
-  # - https://github.com/tomav/docker-mailserver
-  # - https://github.com/hardware/mailserver
 
   # certbot:
   #   image: certbot/certbot
