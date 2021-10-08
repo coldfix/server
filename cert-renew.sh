@@ -20,7 +20,6 @@ docker run --rm \
         --authenticator dns-netcup \
         --dns-netcup-credentials /var/lib/letsencrypt/netcup_credentials.ini \
         --dns-netcup-propagation-seconds 900 \
-        --no-self-upgrade \
         --keep-until-expiring --non-interactive --expand \
         --server https://acme-v02.api.letsencrypt.org/directory \
         --email "$email" --text --agree-tos \

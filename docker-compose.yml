@@ -88,9 +88,11 @@ services:
       - chown
       - dac_override
       - fowner
+      - kill
       - net_bind_service
       - setgid
       - setuid
+      - sys_chroot
 
   murmur:
     build: modules/murmur
