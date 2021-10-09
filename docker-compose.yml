@@ -175,3 +175,19 @@ services:
     image: redis:4-alpine
     volumes:
       - "./var/ddns:/data"
+
+  minecraft:
+    restart: always
+    image: itzg/minecraft-server
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
+      ENABLE_AUTOPAUSE: "TRUE"
+      AUTOPAUSE_TIMEOUT_EST: 300
+      AUTOPAUSE_TIMEOUT_INIT: 300
+      OVERRIDE_SERVER_PROPERTIES: "TRUE"
+      MAX_TICK_TIME: "-1"
+      TZ: Europe/Berlin
+    volumes:
+      - "./var/minecraft:/data"
