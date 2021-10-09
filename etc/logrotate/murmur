@@ -1,0 +1,12 @@
+/var/log/murmur/murmur.log {
+	monthly
+	missingok
+	rotate 99999
+	compress
+	notifempty
+	create
+	dateext
+	postrotate
+		docker exec server_murmur_1 pkill -SIGHUP murmurd
+	endscript
+}
