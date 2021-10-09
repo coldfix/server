@@ -9,7 +9,7 @@ repository is put under the GPLv3_.
 .. _GPLv3: https://www.gnu.org/licenses/gpl-3.0.en.html
 
 
-Usage
+Setup
 ~~~~~
 
 .. code-block:: bash
@@ -30,12 +30,14 @@ Services
 - gogs_     on gogs.coldfix.de_
 - murmur_   on coldfix.de:64738
 - ejabberd_ on coldfix.de
+- docker-mailserver_ on coldfix.de
 
-.. _blog:       https://github.com/coldfix/website
-.. _sudoku:     https://github.com/coldfix/sudoku-swi
-.. _gogs:       https://github.com/gogits/gogs
-.. _murmur:     https://github.com/mumble-voip/mumble
-.. _ejabberd:   https://github.com/processone/ejabberd
+.. _blog:                   https://github.com/coldfix/website
+.. _sudoku:                 https://github.com/coldfix/sudoku-swi
+.. _gogs:                   https://github.com/gogits/gogs
+.. _murmur:                 https://github.com/mumble-voip/mumble
+.. _ejabberd:               https://github.com/processone/ejabberd
+.. _docker-mailserver:      https://github.com/docker-mailserver/docker-mailserver
 
 .. _sudoku.coldfix.de:      https://sudoku.coldfix.de
 .. _gogs.coldfix.de:        https://gogs.coldfix.de
@@ -43,6 +45,11 @@ Services
 
 maintenance
 ~~~~~~~~~~~
+
+mailserver
+----------
+
+See: https://docker-mailserver.github.io/docker-mailserver/edge/
 
 letsencrypt
 -----------
@@ -91,15 +98,6 @@ Replace SSL certificate:
     chown $uid:$gid $crt
     chmod 700 $crt
     docker restart server_ejabberd_1
-
-
-Missing
-~~~~~~~
-
-The following services running on coldfix.de_ are not yet dockerized:
-
-- letsencrypt
-- postfix/dovecot
 
 
 Big TODOs
