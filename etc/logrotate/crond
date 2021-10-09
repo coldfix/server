@@ -1,7 +1,7 @@
 /var/log/cronjobs {
     monthly
 	missingok
-	rotate 9000
+	rotate 99999
 	compress
 	notifempty
 	create

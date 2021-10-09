@@ -16,7 +16,7 @@
 
 loglevel: 4
 log_rotate_size: 10485760
-log_rotate_count: 1
+log_rotate_count: 9999
 
 hosts:
   - "coldfix.de"

@@ -1,14 +1,13 @@
 /var/log/nginx/*.log {
 	monthly
 	missingok
-	rotate 9000
+	rotate 99999
 	compress
-	delaycompress
 	notifempty
 	create
 	dateext
 	sharedscripts
 	postrotate
-		docker exec server_nginx_1 sh -c 'kill -USR1 `cat /run/nginx.pid`'
+		docker exec server_nginx_1 nginx -s reopen
 	endscript
 }
