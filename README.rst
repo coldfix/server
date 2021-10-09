@@ -9,7 +9,7 @@ repository is put under the GPLv3_.
 .. _GPLv3: https://www.gnu.org/licenses/gpl-3.0.en.html
 
 
-Usage
+Setup
 ~~~~~
 
 .. code-block:: bash
@@ -17,6 +17,35 @@ Usage
     git clone git@github.com:coldfix/server --recursive
     cd server
     docker-compose up
+
+
+mailserver
+----------
+
+The mailserver requires some initial setup:
+
+- setup email and aliases using ``./mail-setup.sh [...]``, see setup.sh_
+- create dkim keys: ``./mail-setup.sh config dkim``
+- put netcup credentials in ``./var/letsencrypt/netcup_credentials.ini``, see
+  Credentials_
+- create DNS records, see `Best Practices`_::
+
+    ./mail-setup-dns.sh \
+        create-mx-record \
+        create-spf-record \
+        create-dkim-record \
+        create-dmarc-record \
+        list-records
+
+- check DNS records using this `DMARC Guide`_, an `SPF Record Checker`_, and
+  a `DKIM Key Checker`
+
+.. _setup.sh:           https://docker-mailserver.github.io/docker-mailserver/edge/config/setup.sh/
+.. _Best Practices:     https://docker-mailserver.github.io/docker-mailserver/edge/config/best-practices
+.. _Credentials:        https://github.com/coldfix/certbot-dns-netcup#credentials
+.. _DMARC Guide:        https://dmarcguide.globalcyberalliance.org/
+.. _SPF Record Checker: https://www.dmarcanalyzer.com/spf/checker/
+.. _DKIM Key Checker:   https://protodave.com/tools/dkim-key-checker/
 
 
 Services
@@ -28,24 +57,28 @@ Services
 - blog_     on coldfix.de_
 - sudoku_   on sudoku.coldfix.de_
 - gogs_     on gogs.coldfix.de_
-- cryptpad_ on cryptpad.coldfix.de_
 - murmur_   on coldfix.de:64738
 - ejabberd_ on coldfix.de
+- docker-mailserver_ on coldfix.de
 
-.. _blog:       https://github.com/coldfix/website
-.. _sudoku:     https://github.com/coldfix/sudoku-swi
-.. _gogs:       https://github.com/gogits/gogs
-.. _cryptpad:   https://github.com/xwiki-labs/cryptpad
-.. _murmur:     https://github.com/mumble-voip/mumble
-.. _ejabberd:   https://github.com/processone/ejabberd
+.. _blog:                   https://github.com/coldfix/website
+.. _sudoku:                 https://github.com/coldfix/sudoku-swi
+.. _gogs:                   https://github.com/gogits/gogs
+.. _murmur:                 https://github.com/mumble-voip/mumble
+.. _ejabberd:               https://github.com/processone/ejabberd
+.. _docker-mailserver:      https://github.com/docker-mailserver/docker-mailserver
 
 .. _sudoku.coldfix.de:      https://sudoku.coldfix.de
 .. _gogs.coldfix.de:        https://gogs.coldfix.de
-.. _cryptpad.coldfix.de:    https://cryptpad.coldfix.de
 
 
 maintenance
 ~~~~~~~~~~~
+
+mailserver
+----------
+
+See: https://docker-mailserver.github.io/docker-mailserver/edge/
 
 letsencrypt
 -----------
@@ -94,15 +127,6 @@ Replace SSL certificate:
     chown $uid:$gid $crt
     chmod 700 $crt
     docker restart server_ejabberd_1
-
-
-Missing
-~~~~~~~
-
-The following services running on coldfix.de_ are not yet dockerized:
-
-- letsencrypt
-- postfix/dovecot
 
 
 Big TODOs
