@@ -24,13 +24,13 @@ mailserver
 
 The mailserver requires some initial setup:
 
-- setup email and aliases using ``./mail-setup.sh [...]``, see setup.sh_
-- create dkim keys: ``./mail-setup.sh config dkim``
+- setup email and aliases using ``./bin/mail-setup.sh [...]``, see setup.sh_
+- create dkim keys: ``./bin/mail-setup.sh config dkim``
 - put netcup credentials in ``./var/letsencrypt/netcup_credentials.ini``, see
   Credentials_
 - create DNS records, see `Best Practices`_::
 
-    ./mail-setup-dns.sh \
+    ./bin/mail-setup-dns.sh \
         create-mx-record \
         create-spf-record \
         create-dkim-record \
@@ -90,7 +90,7 @@ a cronjob like this manually:
 .. code-block:: crontab
 
     # min   hour    dom     mon     dow     cmd
-    0       5,21    *       *       *       /home/server/cert-renew.sh --wait 60 --quiet
+    0       5,21    *       *       *       /home/server/bin/cert-renew.sh --wait 60 --quiet
 
 ejabberd
 --------

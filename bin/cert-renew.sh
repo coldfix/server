@@ -2,8 +2,8 @@
 
 #docker pull certbot/dns-netcup > /dev/null
 
-root=$(readlink -f $(dirname "$BASH_SOURCE"))
-source "$root/cert-config.sh"
+root=$(readlink -f "$(dirname "$BASH_SOURCE")"/..)
+source "$root/etc/cert-config.sh"
 
 if [[ $1 = "--wait" ]]; then
     sleep $(expr $RANDOM % $2)m
@@ -27,5 +27,5 @@ docker run --rm \
         ${domains[@]/#/-d } "$@"
 
 if rm "$root/var/letsencrypt/.updated" 2>/dev/null; then
-    exec "$root/cert-reload.sh"
+    exec "$root/bin/cert-reload.sh"
 fi

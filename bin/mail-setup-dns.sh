@@ -7,11 +7,11 @@
 #
 # For more details, see mail-setup-dns.py.
 
-root=$(readlink -f $(dirname "$BASH_SOURCE"))
+root=$(readlink -f "$(dirname "$BASH_SOURCE")"/..)
 
 docker run --rm -it \
     -w / \
-    -v "$root/mail-setup-dns.py":/mail-setup-dns.py \
+    -v "$root/bin/mail-setup-dns.py":/mail-setup-dns.py \
     -v "$root/var/letsencrypt":/var/letsencrypt \
     -v "$root/var/mail/conf":/var/mail/conf \
     --cap-drop=all \

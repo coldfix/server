@@ -1,7 +1,7 @@
 #! /bin/bash
 set -x
 
-root=$(readlink -f $(dirname "$BASH_SOURCE"))
+root=$(readlink -f "$(dirname "$BASH_SOURCE")"/..)
 
 # webserver
 # See: http://nginx.org/en/docs/beginners_guide.html#control
