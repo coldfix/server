@@ -4,15 +4,11 @@ set -x
 root=$(readlink -f "$(dirname "$BASH_SOURCE")"/..)
 
 # webserver
-# See: http://nginx.org/en/docs/beginners_guide.html#control
-# See: http://nginx.org/en/docs/control.html
 docker exec server_nginx_1 nginx -s reload
-#docker exec server_nginx_1 pkill -HUP nginx
-#docker exec server_nginx_1 sh -c 'kill -HUP $(cat /run/nginx.pid)'
 
 # mail
-systemctl reload postfix
-systemctl restart dovecot
+docker exec server_mailserver_1 service postfix reload
+docker exec server_mailserver_1 service dovecot restart
 
 # murmur
 # See: https://wiki.mumble.info/wiki/Obtaining_a_Let's_Encrypt_Murmur_Certificate

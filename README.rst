@@ -83,9 +83,8 @@ See: https://docker-mailserver.github.io/docker-mailserver/edge/
 letsencrypt
 -----------
 
-letsencrypt cronjob is currently not run within docker container because it
-needs to restart the mail system which is not yet dockerized. You need to setup
-a cronjob like this manually:
+letsencrypt cronjob is currently not run within docker container. You need to
+setup a cronjob like this manually:
 
 .. code-block:: crontab
 
