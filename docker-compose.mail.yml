@@ -3,6 +3,7 @@ version: "3"
 services:
   mailserver:
     image: docker.io/mailserver/docker-mailserver:latest
+    restart: always
     hostname: mail
     domainname: coldfix.de
     ports:
