@@ -2,7 +2,6 @@
 	monthly
 	missingok
 	rotate 9000
-	size 20k
 	compress
 	delaycompress
 	notifempty
@@ -10,6 +9,6 @@
 	dateext
 	sharedscripts
 	postrotate
-		/bin/kill -USR1 `cat /run/nginx.pid`
+		docker exec server_nginx_1 sh -c 'kill -USR1 `cat /run/nginx.pid`'
 	endscript
 }

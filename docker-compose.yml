@@ -15,7 +15,7 @@ services:
   #     - all
 
   nginx:
-    build: modules/nginx
+    image: nginx
     restart: always
     volumes:
       - ./etc/nginx:/etc/nginx/
@@ -35,6 +35,16 @@ services:
       - net_bind_service
       - setgid
       - setuid
+
+  logrotate:
+    build: ./modules/logrotate
+    restart: always
+    volumes:
+      - ./etc/logrotate:/etc/logrotate.d
+      - ./var/nginx:/var/log/nginx
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - nginx
 
   blog:
     build: modules/blog

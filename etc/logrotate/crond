@@ -1,0 +1,9 @@
+/var/log/cronjobs {
+    monthly
+	missingok
+	rotate 9000
+	compress
+	notifempty
+	create
+	dateext
+}
