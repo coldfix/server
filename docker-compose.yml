@@ -53,7 +53,7 @@ services:
     volumes:
       - ./modules/blog:/blog
       - ./var/blog:/blog/_build
-    command: ./blogdown build
+    command: /blog/bin/blogdown build
     cap_drop:
       - all
 
