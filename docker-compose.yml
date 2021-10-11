@@ -147,11 +147,6 @@ services:
     restart: always
     hostname: mail
     domainname: coldfix.de
-    dns:
-      - "1.1.1.1"
-      - "1.0.0.1"
-      - "9.9.9.9"
-      - "8.8.8.8"
     ports:
       - "25:25"    # SMTP  (explicit TLS => STARTTLS)
       - "143:143"  # IMAP4 (explicit TLS => STARTTLS)
