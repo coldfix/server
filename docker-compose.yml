@@ -149,7 +149,7 @@ services:
       - PGID=1000
       - TZ=Europe/Berlin
     volumes:
-      - ./etc/syncthing:/config
+      - ./var/syncthing/config:/config
       - ./var/syncthing/data1:/data1
       - ./var/syncthing/data2:/data2
     ports:
