@@ -1,0 +1,12 @@
+server {
+    listen      443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name sync.coldfix.de
+                sync.coldfix.eu
+                sync.fireflake.de
+                sync.fireflake.eu;
+    location / {
+        proxy_pass http://syncthing:8384;
+    }
+    access_log /var/log/nginx/access_syncthing.log;
+}
