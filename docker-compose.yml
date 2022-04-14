@@ -35,6 +35,17 @@ services:
       - net_bind_service
       - setgid
       - setuid
+    depends_on:
+      # - blog
+      - ddns
+      - ejabberd
+      - gogs
+      - matrix
+      - element
+      - sudoku
+      - syncthing
+      - tty-proxy
+      - jitsi-web
 
   logrotate:
     build: ./modules/logrotate
@@ -46,6 +57,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - nginx
+      - murmur
 
   blog:
     build: modules/blog
@@ -224,6 +236,10 @@ services:
     cap_drop:
       - all
 
+# ----------------------------------------
+# dyndns
+# ----------------------------------------
+
   # dyndns:
   ddns:
     restart: always
@@ -255,3 +271,74 @@ services:
     image: redis:4-alpine
     volumes:
       - "./var/ddns:/data"
+
+# ----------------------------------------
+# Jitsi
+# ----------------------------------------
+
+  # Frontend
+  jitsi-web:
+    image: jitsi/web:stable-7001
+    restart: unless-stopped
+    volumes:
+      - ./var/jitsi/web:/config:Z
+      - ./var/jitsi/web/crontabs:/var/spool/cron/crontabs:Z
+      - ./var/jitsi/transcripts:/usr/share/jitsi-meet/transcripts:Z
+    env_file:
+      - ./var/jitsi/env
+    networks:
+      default:
+      meet.jitsi:
+        aliases:
+          - web
+          - web.meet.jitsi
+
+  # XMPP server
+  prosody:
+    image: jitsi/prosody:stable-7001
+    restart: unless-stopped
+    expose:
+      - '5222'
+      - '5347'
+      - '5280'
+    volumes:
+      - ./var/jitsi/prosody/config:/config:Z
+      - ./var/jitsi/prosody/prosody-plugins-custom:/prosody-plugins-custom:Z
+    env_file:
+      - ./var/jitsi/env
+    networks:
+      meet.jitsi:
+        aliases:
+          - xmpp.meet.jitsi
+
+  # Focus component
+  jicofo:
+    image: jitsi/jicofo:stable-7001
+    restart: unless-stopped
+    volumes:
+      - ./var/jitsi/jicofo:/config:Z
+    env_file:
+      - ./var/jitsi/env
+    depends_on:
+      - prosody
+    networks:
+      meet.jitsi:
+
+  # Video bridge
+  jvb:
+    image: jitsi/jvb:stable-7001
+    restart: unless-stopped
+    ports:
+      - 10000:10000/udp
+    volumes:
+      - ./var/jitsi/jvb:/config:Z
+    env_file:
+      - ./var/jitsi/env
+    depends_on:
+      - prosody
+    networks:
+      meet.jitsi:
+
+# Custom network so all services can communicate using a FQDN
+networks:
+    meet.jitsi:

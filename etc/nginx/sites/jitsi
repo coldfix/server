@@ -1,0 +1,10 @@
+server {
+    listen      443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name meet.coldfix.de
+                jitsi.coldfix.de;
+    location / {
+        proxy_pass http://jitsi-web:80;
+    }
+    access_log /var/log/nginx/access_jitsi.log;
+}

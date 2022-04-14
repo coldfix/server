@@ -1,4 +1,4 @@
-# ssh
+# gogs
 ufw allow 22
 
 # nginx
@@ -27,3 +27,7 @@ ufw allow 993
 
 # ddns_powerdns
 ufw allow 53
+
+# jitsi
+ufw allow 4443/tcp
+ufw allow 10000/udp
