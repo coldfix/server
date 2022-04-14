@@ -142,6 +142,19 @@ services:
     cap_drop:
       - all
 
+  matrix:
+    image: matrixdotorg/synapse
+    restart: unless-stopped
+    volumes:
+      - ./var/matrix:/data
+    environment:
+      - TZ=Europe/Berlin
+
+  element:
+    image: vectorim/element-web
+    volumes:
+      - ./etc/element/config.json:/app/config.json
+
   syncthing:
     image: lscr.io/linuxserver/syncthing
     environment:

@@ -8,4 +8,18 @@ server {
                 37.120.171.171;
     access_log /var/log/nginx/access_blog.log;
     root /var/www/blog;
+
+
+    location /_matrix {
+        proxy_pass http://matrix:8008;
+    }
+    location /.well-known/matrix/server {
+        return 200 '{"m.server": "matrix.coldfix.de:443"}';
+        add_header Content-Type application/json;
+    }
+    location /.well-known/matrix/client {
+        return 200 '{"m.homeserver": {"base_url": "https://coldfix.de"},"m.identity_server": {"base_url": "https://vector.im"}}';
+        add_header Content-Type application/json;
+        add_header "Access-Control-Allow-Origin" *;
+    }
 }
