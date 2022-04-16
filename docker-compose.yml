@@ -14,6 +14,10 @@ services:
   #   cap_drop:
   #     - all
 
+# ----------------------------------------
+# webserver / reverse proxy
+# ----------------------------------------
+
   nginx:
     image: nginx
     restart: always
@@ -59,6 +63,10 @@ services:
       - nginx
       - murmur
 
+# ----------------------------------------
+# website
+# ----------------------------------------
+
   blog:
     build: modules/blog
     restart: "no"           # build + exit
@@ -94,6 +102,10 @@ services:
 #       - setgid
 #       - setuid
 
+# ----------------------------------------
+# gogs
+# ----------------------------------------
+
   gogs:
     image: gogs/gogs
     restart: always
@@ -114,6 +126,10 @@ services:
       - setuid
       - sys_chroot
 
+# ----------------------------------------
+# mumble
+# ----------------------------------------
+
   murmur:
     build: modules/murmur
     restart: always
@@ -132,6 +148,10 @@ services:
    #  - dac_override
    #  - setgid
    #  - setuid
+
+# ----------------------------------------
+# jabber
+# ----------------------------------------
 
   ejabberd:
     build: modules/ejabberd
@@ -154,18 +174,9 @@ services:
     cap_drop:
       - all
 
-  matrix:
-    image: matrixdotorg/synapse
-    restart: unless-stopped
-    volumes:
-      - ./var/matrix:/data
-    environment:
-      - TZ=Europe/Berlin
-
-  element:
-    image: vectorim/element-web
-    volumes:
-      - ./etc/element/config.json:/app/config.json
+# ----------------------------------------
+# syncthing
+# ----------------------------------------
 
   syncthing:
     image: lscr.io/linuxserver/syncthing
@@ -183,6 +194,10 @@ services:
       - 22000:22000/udp
       - 21027:21027/udp
     restart: unless-stopped
+
+# ----------------------------------------
+# mailserver
+# ----------------------------------------
 
   mailserver:
     image: docker.io/mailserver/docker-mailserver:latest
@@ -224,7 +239,10 @@ services:
       - NET_ADMIN
       - SYS_PTRACE
 
-  # tty-proxy
+# ----------------------------------------
+# tty-proxy
+# ----------------------------------------
+
   tty-proxy:
     build: modules/tty-proxy
     restart: always
@@ -271,6 +289,23 @@ services:
     image: redis:4-alpine
     volumes:
       - "./var/ddns:/data"
+
+# ----------------------------------------
+# matrix
+# ----------------------------------------
+
+  matrix:
+    image: matrixdotorg/synapse
+    restart: unless-stopped
+    volumes:
+      - ./var/matrix:/data
+    environment:
+      - TZ=Europe/Berlin
+
+  element:
+    image: vectorim/element-web
+    volumes:
+      - ./etc/element/config.json:/app/config.json
 
 # ----------------------------------------
 # Jitsi
