@@ -30,6 +30,7 @@ services:
     ports:
       - "443:443"
       - "80:80"
+      # tty-proxy
       - "6543:6543"
     cap_drop:
       - all
@@ -44,12 +45,17 @@ services:
       - ddns
       - ejabberd
       - gogs
-      - matrix
+      - synapse
       - element
       - sudoku
       - syncthing
       - tty-proxy
-      - jitsi-web
+      - web
+    networks:
+      - default
+      - meet.jitsi
+      - matrix
+      - ddns
 
   logrotate:
     build: ./modules/logrotate
@@ -273,6 +279,8 @@ services:
       DDNS_SOA_DOMAIN: ddns.coldfix.de
       DDNS_REDIS_HOST: ddns_redis:6379
       DDNS_EXPIRATION_DAYS: 180
+    networks:
+      ddns:
 
   ddns_powerdns:
     build: modules/ddns/docker/powerdns
@@ -283,36 +291,44 @@ services:
       - "53:53/udp"
     environment:
       PDNS_REMOTE_HTTP_HOST: ddns:8053
+    networks:
+      ddns:
 
   ddns_redis:
     restart: always
     image: redis:4-alpine
     volumes:
       - "./var/ddns:/data"
+    networks:
+      ddns:
 
 # ----------------------------------------
 # matrix
 # ----------------------------------------
 
-  matrix:
+  synapse:
     image: matrixdotorg/synapse
     restart: unless-stopped
     volumes:
       - ./var/matrix:/data
     environment:
       - TZ=Europe/Berlin
+    networks:
+      matrix:
 
   element:
     image: vectorim/element-web
     volumes:
       - ./etc/element/config.json:/app/config.json
+    networks:
+      matrix:
 
 # ----------------------------------------
 # Jitsi
 # ----------------------------------------
 
   # Frontend
-  jitsi-web:
+  web:
     image: jitsi/web:stable-7001
     restart: unless-stopped
     volumes:
@@ -322,10 +338,8 @@ services:
     env_file:
       - ./var/jitsi/env
     networks:
-      default:
       meet.jitsi:
         aliases:
-          - web
           - web.meet.jitsi
 
   # XMPP server
@@ -392,3 +406,5 @@ services:
 # Custom network so all services can communicate using a FQDN
 networks:
     meet.jitsi:
+    matrix:
+    ddns:

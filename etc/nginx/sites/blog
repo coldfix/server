@@ -11,7 +11,7 @@ server {
 
 
     location /_matrix {
-        proxy_pass http://matrix:8008;
+        proxy_pass http://synapse:8008;
     }
     location /.well-known/matrix/server {
         return 200 '{"m.server": "matrix.coldfix.de:443"}';

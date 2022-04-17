@@ -3,7 +3,7 @@ server {
     listen [::]:443 ssl http2;
     server_name matrix.coldfix.de;
     location / {
-        proxy_pass http://matrix:8008;
+        proxy_pass http://synapse:8008;
     }
     access_log /var/log/nginx/access_matrix.log;
 }
