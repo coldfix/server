@@ -56,6 +56,7 @@ services:
       - meet.jitsi
       - matrix
       - ddns
+      - weblate
 
   logrotate:
     build: ./modules/logrotate
@@ -303,6 +304,44 @@ services:
       ddns:
 
 # ----------------------------------------
+# weblate
+# ----------------------------------------
+
+  weblate:
+    image: weblate/weblate
+    restart: unless-stopped
+    volumes:
+      - ./var/weblate/data:/app/data
+    tmpfs:
+      - /app/cache
+    env_file:
+      - ./etc/weblate/env
+    depends_on:
+      - weblate-database
+      - weblate-cache
+    networks:
+      weblate:
+
+  weblate-database:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    volumes:
+      - ./var/weblate/postgres:/var/lib/postgresql/data
+    env_file:
+      - ./etc/weblate/env
+    networks:
+      weblate:
+
+  weblate-cache:
+    image: redis:6-alpine
+    restart: unless-stopped
+    command: [redis-server, --save, '60', '1']
+    volumes:
+      - ./var/weblate/redis:/data
+    networks:
+      weblate:
+
+# ----------------------------------------
 # matrix
 # ----------------------------------------
 
@@ -408,3 +447,4 @@ networks:
     meet.jitsi:
     matrix:
     ddns:
+    weblate:

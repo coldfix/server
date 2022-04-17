@@ -1,0 +1,9 @@
+server {
+    listen      443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name weblate.coldfix.de;
+    location / {
+        proxy_pass http://weblate:8080;
+    }
+    access_log /var/log/nginx/access_weblate.log;
+}
