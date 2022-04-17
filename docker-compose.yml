@@ -374,6 +374,21 @@ services:
     networks:
       meet.jitsi:
 
+  # TURN/STUN server
+  coturn:
+    image: coturn/coturn
+    restart: unless-stopped
+    volumes:
+      - ./etc/coturn:/etc/coturn
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    # network_mode: host
+    ports:
+      - "3478:3478"
+      - "3479:3479"
+      - "5349:5349"
+      - "5350:5350"
+      - "49160-49200:49160-49200/udp"
+
 # Custom network so all services can communicate using a FQDN
 networks:
     meet.jitsi:
