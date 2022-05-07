@@ -321,6 +321,23 @@ services:
       - weblate-cache
     networks:
       weblate:
+    environment:
+      # Needed due to https://github.com/WeblateOrg/weblate/issues/7451
+      WEBLATE_DEFAULT_PULL_MESSAGE: |
+        Translations update from {{ site_title }}
+
+        Translations update from [{{ site_title }}]({{ site_url }}) for [{{ project_name }}/{{ component_name }}]({{url}}).
+
+        {% if component_linked_childs %}
+        It also includes following components:
+        {% for linked in component_linked_childs %}
+        * [{{ linked.project_name }}/{{ linked.name }}]({{ linked.url }})
+        {% endfor %}
+        {% endif %}
+
+        Current translation status:
+
+        ![Weblate translation status]({{widget_url}})
 
   weblate-database:
     image: postgres:14-alpine
