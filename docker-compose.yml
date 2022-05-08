@@ -87,16 +87,16 @@ services:
     build: modules/sudoku
     init: true
     restart: always
-#   ports:
-#     - "3000:3000"
+    expose:
+      - "3000"            # nginx/sudoku.coldfix.de
     cap_drop:
       - all
 
 #   pycbox:
 #     build: modules/pycbox
 #     restart: always
-# #   ports:
-# #     - "5000:5000"
+#     expose:
+#       - "5000"
 #     volumes:
 #       - ./modules/pycbox/pycbox:/pycbox/pycbox
 #       - ./var/pycbox/files:/pycbox/files
@@ -120,7 +120,8 @@ services:
       - "./var/gogs:/data"
     ports:
       - "22:22"
-#     - "3000:3000"
+    expose:
+      - "3000"            # nginx/gogs.coldfix.de
     cap_drop:
       - all
     cap_add:
@@ -175,9 +176,9 @@ services:
       - "1883:1883"     # mod_mqtt
       - "5222:5222"     # ejabberd_c2s
       - "5269:5269"     # ejabberd_s2s_in
-    # tunneled through nginx:
-    # - "5280:5280"     # ejabberd_http/http
-    # - "5443:5443"     # ejabberd_http/https
+    expose:
+      - "5280"          # ejabberd_http/http ejabberd.coldfix.de/admin
+      - "5443"          # ejabberd_http/https
     environment:
       - TZ=Europe/Berlin
     cap_drop:
@@ -198,10 +199,11 @@ services:
       - ./var/syncthing/data1:/data1
       - ./var/syncthing/data2:/data2
     ports:
-      # - 8384:8384
       - 22000:22000/tcp
       - 22000:22000/udp
       - 21027:21027/udp
+    expose:
+      - "8384"            # nginx/sync.coldfix.de
     restart: unless-stopped
 
 # ----------------------------------------
@@ -255,9 +257,9 @@ services:
   tty-proxy:
     build: modules/tty-proxy
     restart: always
-    # ports:
-    # - "6543:3456"
-    # - "8080:8080"
+    expose:
+      - "3456"            # nginx/stream:6543
+      - "8080"            # nginx/tty.coldfix.de
     environment:
       URL: https://tty.coldfix.de
     cap_drop:
@@ -275,8 +277,8 @@ services:
       dockerfile: docker/ddns/Dockerfile
     depends_on:
       - ddns_redis
-#   ports:
-#     - "8082:8080"
+    expose:
+      - "8080"            # nginx/ddns.coldfix.de
     environment:
       DDNS_DOMAIN:     dns.coldfix.de
       DDNS_SOA_DOMAIN: ddns.coldfix.de
@@ -317,6 +319,8 @@ services:
       - ./var/weblate/data:/app/data
     tmpfs:
       - /app/cache
+    expose:
+      - "8080"            # nginx/weblate.coldfix.de
     env_file:
       - ./var/weblate/env
     depends_on:
@@ -355,6 +359,8 @@ services:
       - ./var/matrix:/data
     environment:
       - TZ=Europe/Berlin
+    expose:
+      - "8008"            # nginx/matrix.coldfix.de
     networks:
       matrix:
 
@@ -363,6 +369,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./etc/element/config.json:/app/config.json
+    expose:
+      - "80"              # nginx/im.coldfix.de
     networks:
       matrix:
     depends_on:
