@@ -8,6 +8,8 @@ server {
                 37.120.171.171;
     access_log /var/log/nginx/access_blog.log;
     root /var/www/blog;
+    try_files $uri $uri/ $uri.html;
+    charset utf-8;
 
 
     location /_matrix {
