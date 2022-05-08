@@ -26,6 +26,19 @@ docker run --rm \
         --renew-hook 'touch /var/lib/letsencrypt/.updated' \
         ${domains[@]/#/-d } "$@"
 
+# old server ip: 88.198.213.2
+docker run --rm \
+    -v "$root/var/letsencrypt":/var/lib/letsencrypt \
+    -v /etc/letsencrypt:/etc/letsencrypt \
+    -v $(pwd)/var/acme:/var/www \
+    coldfix/certbot-dns-netcup certbot certonly \
+        --keep-until-expiring --non-interactive --expand \
+        --server https://acme-v02.api.letsencrypt.org/directory \
+        --renew-hook 'touch /var/lib/letsencrypt/.updated' \
+        --email "tapienz@gmail.com" --text --agree-tos \
+        --webroot --webroot-path /var/www \
+        -d miosta.eu -d www.miosta.eu -d gogs.miosta.eu "$@"
+
 if rm "$root/var/letsencrypt/.updated" 2>/dev/null; then
     exec "$root/bin/cert-reload.sh"
 fi

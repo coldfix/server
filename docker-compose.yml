@@ -27,6 +27,7 @@ services:
       - ./var/acme:/var/www/acme
       - ./var/blog:/var/www/blog
       - ./var/nginx:/var/log/nginx
+      - /home/anna/miosta_blog:/var/www/miosta
     ports:
       - "443:443"
       - "80:80"
