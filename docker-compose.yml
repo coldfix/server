@@ -315,7 +315,7 @@ services:
     tmpfs:
       - /app/cache
     env_file:
-      - ./etc/weblate/env
+      - ./var/weblate/env
     depends_on:
       - weblate-database
       - weblate-cache
@@ -345,7 +345,7 @@ services:
     volumes:
       - ./var/weblate/postgres:/var/lib/postgresql/data
     env_file:
-      - ./etc/weblate/env
+      - ./var/weblate/env
     networks:
       weblate:
 
@@ -452,7 +452,7 @@ services:
     image: coturn/coturn
     restart: unless-stopped
     volumes:
-      - ./etc/coturn:/etc/coturn
+      - ./var/coturn:/etc/coturn
       - /etc/letsencrypt:/etc/letsencrypt:ro
     # network_mode: host
     ports:
