@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+docker run --rm \
+    -v "$root/var/letsencrypt":/var/lib/letsencrypt \
+    -v /etc/letsencrypt:/etc/letsencrypt \
+    -v $(pwd)/var/acme:/var/www \
+    coldfix/certbot-dns-netcup certbot "$@"
