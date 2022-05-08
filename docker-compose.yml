@@ -374,10 +374,13 @@ services:
 
   element:
     image: vectorim/element-web
+    restart: unless-stopped
     volumes:
       - ./etc/element/config.json:/app/config.json
     networks:
       matrix:
+    depends_on:
+      - synapse
 
 # ----------------------------------------
 # Jitsi
