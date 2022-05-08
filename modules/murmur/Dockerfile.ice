@@ -14,5 +14,5 @@ RUN apt-get update && \
 EXPOSE 64738/tcp
 EXPOSE 64738/udp
 
-ENTRYPOINT ["/sbin/tini", "--", "/murmur/init.sh"]
+ENTRYPOINT ["/murmur/init.sh"]
 CMD ["/usr/bin/murmurd", "-fg", "-v"]

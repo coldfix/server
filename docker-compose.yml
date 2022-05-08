@@ -58,6 +58,7 @@ services:
 
   logrotate:
     build: ./modules/logrotate
+    init: true
     restart: always
     volumes:
       - ./etc/logrotate:/etc/logrotate.d
@@ -84,6 +85,7 @@ services:
 
   sudoku:
     build: modules/sudoku
+    init: true
     restart: always
 #   ports:
 #     - "3000:3000"
@@ -137,6 +139,7 @@ services:
 
   murmur:
     build: modules/murmur
+    init: true
     restart: always
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
@@ -159,7 +162,8 @@ services:
 # ----------------------------------------
 
   ejabberd:
-    build: modules/ejabberd
+    image: ejabberd/ecs
+    init: true
     restart: always
     volumes:
       - ./etc/ejabberd:/home/ejabberd/conf
@@ -307,6 +311,7 @@ services:
 
   weblate:
     image: weblate/weblate
+    init: true
     restart: unless-stopped
     volumes:
       - ./var/weblate/data:/app/data

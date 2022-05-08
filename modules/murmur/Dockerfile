@@ -8,11 +8,10 @@ VOLUME /etc/murmur
 VOLUME /var/lib/murmur
 VOLUME /var/log/murmur
 
-RUN apk update && \
-    apk add -u tini sqlite murmur icu-libs openssl
+RUN apk add --no-cache sqlite murmur icu-libs openssl
 
 EXPOSE 64738/tcp
 EXPOSE 64738/udp
 
-ENTRYPOINT ["/sbin/tini", "--", "/murmur/init.sh"]
+ENTRYPOINT ["/murmur/init.sh"]
 CMD ["/usr/bin/murmurd", "-fg", "-v"]
