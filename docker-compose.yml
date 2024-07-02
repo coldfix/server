@@ -231,9 +231,9 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
     environment:
       # services:
-      - ENABLE_CLAMAV=1         # Antivirus
+      - ENABLE_CLAMAV=0         # takes up >1G RAM on its own
       - ENABLE_FAIL2BAN=1       # Ban IPs after 3 failed login attempts
-      - ENABLE_POSTGREY=1
+      - ENABLE_POSTGREY=0
       - ENABLE_SPAMASSASSIN=1
       - ENABLE_QUOTAS=0
       - ENABLE_POP3=0
