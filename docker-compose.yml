@@ -313,7 +313,7 @@ services:
 # ----------------------------------------
 
   weblate:
-    image: weblate/weblate
+    build: modules/weblate
     init: true
     restart: unless-stopped
     volumes:
