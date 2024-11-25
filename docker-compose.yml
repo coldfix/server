@@ -51,6 +51,7 @@ services:
       - sudoku
       - syncthing
       - tty-proxy
+      - cryptpad
     networks:
       - default
       - matrix
@@ -376,6 +377,42 @@ services:
       matrix:
     depends_on:
       - synapse
+
+
+# ----------------------------------------
+# cryptpad
+# ----------------------------------------
+
+  cryptpad:
+    build: modules/cryptpad
+
+    environment:
+      - CPAD_MAIN_DOMAIN=https://cryptpad.coldfix.de
+      - CPAD_SANDBOX_DOMAIN=https://sandbox.coldfix.de
+      - CPAD_CONF=/cryptpad/config/config.js
+
+      # Read and accept the license before uncommenting the following line:
+      # https://github.com/ONLYOFFICE/web-apps/blob/master/LICENSE.txt
+      - CPAD_INSTALL_ONLYOFFICE=yes
+
+    volumes:
+      - ./etc/cryptpad/config.js:/cryptpad/config/config.js
+      - ./var/cryptpad/blob:/cryptpad/blob
+      - ./var/cryptpad/block:/cryptpad/block
+      - ./var/cryptpad/customize:/cryptpad/customize
+      - ./var/cryptpad/data:/cryptpad/data
+      - ./var/cryptpad/datastore:/cryptpad/datastore
+      # - ./var/cryptpad/onlyoffice-dist:/cryptpad/www/common/onlyoffice/dist
+      # - ./var/cryptpad/onlyoffice-conf:/cryptpad/onlyoffice-conf
+
+    expose:
+      - "3000"
+      - "3003"
+
+    # ulimits:
+    #   nofile:
+    #     soft: 1000000
+    #     hard: 1000000
 
 # Custom network so all services can communicate using a FQDN
 networks:

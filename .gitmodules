@@ -13,3 +13,6 @@
 [submodule "modules/tty-proxy"]
 	path = modules/tty-proxy
 	url = git@github.com:elisescu/tty-proxy
+[submodule "modules/cryptpad"]
+	path = modules/cryptpad
+	url = https://github.com/cryptpad/cryptpad.git
