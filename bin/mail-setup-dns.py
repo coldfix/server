@@ -25,7 +25,7 @@ from lexicon.cli import logger, generate_list_table_result
 from lexicon.config import ConfigResolver
 from lexicon.providers import netcup
 
-DOMAINS = ('coldfix.de', 'coldfix.eu', 'fireflake.de', 'fireflake.eu')
+DOMAINS = ('coldfix.de', 'coldfix.eu', 'fireflake.de')
 CREDENTIALS_FILE = 'var/letsencrypt/netcup_credentials.ini'
 
 
