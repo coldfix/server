@@ -25,7 +25,7 @@ docker run --rm \
         --email "tapienz@gmail.com" --text --agree-tos \
         --renew-hook 'touch /var/log/letsencrypt/.updated-miosta' \
         --webroot --webroot-path /var/www \
-        -d miosta.eu -d www.miosta.eu -d gogs.miosta.eu "$@"
+        -d miosta.eu -d www.miosta.eu -d gogs.miosta.eu -d miosta.de "$@"
 date
 
 
