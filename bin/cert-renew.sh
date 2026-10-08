@@ -18,7 +18,6 @@ docker run --rm \
     -v "$root/var/letsencrypt/lib":/var/lib/letsencrypt \
     -v "$root/var/letsencrypt/log":/var/log/letsencrypt \
     -v /etc/letsencrypt:/etc/letsencrypt \
-    --cap-drop=all \
     coldfix/certbot-dns-netcup certbot certonly \
         --authenticator dns-netcup \
         --dns-netcup-credentials /var/lib/letsencrypt/netcup_credentials.ini \
