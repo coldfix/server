@@ -26,7 +26,7 @@ from lexicon.config import ConfigResolver
 from lexicon.providers import netcup
 
 DOMAINS = ('coldfix.de', 'coldfix.eu', 'fireflake.de')
-CREDENTIALS_FILE = 'var/letsencrypt/netcup_credentials.ini'
+CREDENTIALS_FILE = 'var/letsencrypt/lib/netcup_credentials.ini'
 
 
 def read_ini(filename, section='top'):
