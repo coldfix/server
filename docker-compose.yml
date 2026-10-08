@@ -190,9 +190,9 @@ services:
 # ----------------------------------------
 
   mailserver:
-    image: docker.io/mailserver/docker-mailserver:latest
+    image: ghcr.io/docker-mailserver/docker-mailserver:latest
     restart: always
-    hostname: mail
+    hostname: mail.coldfix.de
     domainname: coldfix.de
     ports:
       - "25:25"    # SMTP  (explicit TLS => STARTTLS)
