@@ -69,7 +69,7 @@ def main(actions):
                 provider.create_record('MX', '@', '@')
 
             elif action == 'create-spf-record':
-                provider.create_record('TXT', '@', 'v=spf1 mx ~all')
+                provider.create_record('TXT', '@', 'v=spf1 mx -all')
 
             elif action == 'create-dkim-record':
                 with open(f'var/mail/conf/opendkim/keys/{domain}/mail.txt') as f:
@@ -82,8 +82,9 @@ def main(actions):
                 rtype = 'TXT'
                 name = '_dmarc'
                 content = \
-                    f'v=DMARC1; p=none; rua=mailto:dmarc.report@{domain}; ' \
-                    f'ruf=mailto:dmarc.report@{domain}; sp=none; ri=86400'
+                    'v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s; ' \
+                    f'rua=mailto:dmarc.report@{domain}; ' \
+                    f'ruf=mailto:dmarc.report@{domain}; ri=86400'
 
                 print("Creating DMARC record:", name, rtype, repr(content))
                 provider.create_record(rtype, name, content)
