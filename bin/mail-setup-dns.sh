@@ -15,4 +15,4 @@ docker run --rm -it \
     -v "$root/var/letsencrypt":/var/letsencrypt \
     -v "$root/var/mail/conf":/var/mail/conf \
     --cap-drop=all \
-    coldfix/certbot-dns-netcup ./mail-setup-dns.py "$@"
+    docker.io/analogj/lexicon ./mail-setup-dns.py "$@"
